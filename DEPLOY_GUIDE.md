@@ -48,20 +48,32 @@ git push -u origin main
 
 ---
 
-## 🔧 BƯỚC 2: THÊM DATABASE (UPSTASH REDIS)
+## 🔧 BƯỚC 2: THÊM DATABASE (REDIS)
 
-### 2.1 Trong Vercel Dashboard
-1. **Vào project** vừa deploy
-2. **Bấm "Marketplace"** (sidebar trái, icon giỏ hàng 🛒)
-3. **Tìm "Upstash Redis"** → **"Add Integration"**
-4. **Chọn project** → **"Create database"**
+### 2.1 Cách 1: Sử dụng Upstash từ Vercel Marketplace (Dễ nhất)
+1. **Trong Vercel Dashboard** → **Marketplace** 
+2. **Tìm "Upstash"** → **"Add Integration"** 
+3. **Chọn project** → **"Create database"**
+4. Vercel sẽ tự động thêm các biến môi trường:
+   ```
+   KV_REST_API_URL=https://your-database.upstash.io
+   KV_REST_API_TOKEN=your_token_here
+   REDIS_URL=rediss://default:token@host:6379
+   ```
 
-### 2.2 Xác nhận biến môi trường
-Sau khi tạo database, Vercel sẽ tự động thêm 2 biến môi trường:
-- `UPSTASH_REDIS_REST_URL`
-- `UPSTASH_REDIS_REST_TOKEN`
+### 2.2 Cách 2: Sử dụng Redis Cloud
+1. **Truy cập [redis.com](https://redis.com)** → **"Try Free"**
+2. **Tạo database** miễn phí (30MB)
+3. **Copy connection string** dạng: `redis://default:password@host:port`
+4. **Trong Vercel Dashboard** → **Settings** → **Environment Variables**
+5. **Thêm biến**: `REDIS_URL` = connection string của bạn
 
+### 2.3 Xác nhận biến môi trường
 Kiểm tra tại: **Project → Settings → Environment Variables**
+
+Bạn sẽ thấy một trong các bộ biến sau:
+- **Upstash KV**: `KV_REST_API_URL` + `KV_REST_API_TOKEN` 
+- **Redis Cloud**: `REDIS_URL`
 
 ✅ Ứng dụng sẽ tự động redeploy và hoạt động đầy đủ!
 
