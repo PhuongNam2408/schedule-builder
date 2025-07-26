@@ -15,13 +15,23 @@ Schedule Builder là ứng dụng web để tạo lịch trình thăm quán cà 
 - Tài khoản Vercel (miễn phí tại [vercel.com](https://vercel.com))
 
 ### 1.2 Upload code lên GitHub
+
+**Bước 1**: Tạo repository trên GitHub
+1. Truy cập [github.com](https://github.com) và đăng nhập
+2. Bấm **"New repository"** 
+3. Tên repository: `schedule-builder`
+4. Để **Public** (hoặc Private nếu muốn)
+5. **KHÔNG** tick "Add a README file"
+6. Bấm **"Create repository"**
+
+**Bước 2**: Push code lên GitHub
 ```bash
 # Nếu chưa có Git repo
 git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/username/schedule-builder.git
+git remote add origin https://github.com/phuongnamnguyen2408/schedule-builder.git
 git push -u origin main
 ```
 
