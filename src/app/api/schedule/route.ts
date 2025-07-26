@@ -29,8 +29,26 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
-    const items = await redis.lrange<string>("schedules", 0, -1);
-    const schedules = items.map(item => JSON.parse(item));
+    const items = await redis.lrange("schedules", 0, -1);
+    
+    // Xử lý dữ liệu từ Redis - có thể là string hoặc object
+    const schedules = items.map(item => {
+      if (typeof item === 'string') {
+        try {
+          return JSON.parse(item);
+        } catch (e) {
+          console.error("Error parsing item:", item, e);
+          return null;
+        }
+      } else if (typeof item === 'object' && item !== null) {
+        // Dữ liệu đã là object, trả về trực tiếp
+        return item;
+      } else {
+        console.error("Unexpected item type:", typeof item, item);
+        return null;
+      }
+    }).filter(item => item !== null); // Loại bỏ các item lỗi
+    
     return NextResponse.json(schedules);
   } catch (error) {
     console.error("Error fetching schedules:", error);
