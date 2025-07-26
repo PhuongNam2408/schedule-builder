@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Coffee, Star, MapPin, Clock, DollarSign } from "lucide-react";
+import { Coffee, Star, MapPin } from "lucide-react";
 import { cafes, Cafe } from "@/data/venues";
 import { useSchedule } from "@/context/ScheduleContext";
 
@@ -41,9 +41,11 @@ export default function CafeSelection() {
               onMouseLeave={() => setHoveredId(null)}
             >
               <div className="relative">
-                <img
+                <Image
                   src={cafe.image}
                   alt={cafe.name}
+                  width={400}
+                  height={192}
                   className="w-full h-48 object-cover"
                 />
                 <div className="absolute top-4 right-4 bg-white rounded-full px-3 py-1 shadow-lg">

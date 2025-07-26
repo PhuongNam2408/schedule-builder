@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useSchedule } from '@/context/ScheduleContext';
 
 export default function Summary() {

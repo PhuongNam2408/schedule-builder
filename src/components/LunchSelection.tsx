@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Clock, MapPin, Star, DollarSign } from 'lucide-react';
 import { lunchPlaces, LunchPlace } from '@/data/venues';
 import { useSchedule } from '@/context/ScheduleContext';
@@ -42,9 +43,11 @@ export default function LunchSelection() {
               onMouseLeave={() => setHoveredId(null)}
             >
               <div className="relative">
-                <img
+                <Image
                   src={lunch.image}
                   alt={lunch.name}
+                  width={400}
+                  height={192}
                   className="w-full h-48 object-cover"
                 />
                 <div className="absolute top-4 right-4 bg-white rounded-full px-3 py-1 shadow-lg">

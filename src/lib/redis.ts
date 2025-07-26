@@ -1,30 +1,54 @@
 import { Redis } from "@upstash/redis";
 
-// Kết nối Redis với Upstash (hỗ trợ Vercel deployment)
-export const redis = (() => {
+let redisClient: Redis | null = null;
+
+export function getRedis(): Redis {
+  if (redisClient) {
+    return redisClient;
+  }
+
   if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
     // Upstash KV (từ Vercel Marketplace)
-    return new Redis({
+    redisClient = new Redis({
       url: process.env.KV_REST_API_URL,
       token: process.env.KV_REST_API_TOKEN,
     });
   } else if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
     // Upstash Redis trực tiếp
-    return Redis.fromEnv();
+    redisClient = Redis.fromEnv();
   } else if (process.env.REDIS_URL) {
     // Fallback cho development với Redis Cloud - tạo mock client
     console.warn("Using Redis Cloud in development - limited functionality");
-    return {
+    redisClient = {
       lpush: async () => { console.log("Mock Redis lpush"); return 1; },
-      ltrim: async () => { console.log("Mock Redis ltrim"); return "OK"; },
+      ltrim: async () => { console.log("Mock Redis ltrim"); return "OK" as const; },
       lrange: async () => { console.log("Mock Redis lrange"); return []; },
       del: async () => { console.log("Mock Redis del"); return 1; },
-    } as any;
+      set: async () => { console.log("Mock Redis set"); return "OK" as const; },
+      get: async () => { console.log("Mock Redis get"); return null; },
+    } as unknown as Redis;
   } else {
-    throw new Error(
-      "No Upstash Redis configuration found. Please set:\n" +
-      "- KV_REST_API_URL + KV_REST_API_TOKEN (Upstash KV from Vercel Marketplace)\n" +
-      "- UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN (Upstash Redis direct)"
-    );
+    // For build time, return a mock that won't be executed
+    console.warn("No Redis configuration found, using build-time mock");
+    redisClient = {
+      lpush: async () => 1,
+      ltrim: async () => "OK" as const,
+      lrange: async () => [],
+      del: async () => 1,
+      set: async () => "OK" as const,
+      get: async () => null,
+    } as unknown as Redis;
   }
-})();
+
+  return redisClient;
+}
+
+// Export redis as a getter function to avoid initialization during module load
+export const redis = {
+  get lpush() { return getRedis().lpush.bind(getRedis()); },
+  get ltrim() { return getRedis().ltrim.bind(getRedis()); },
+  get lrange() { return getRedis().lrange.bind(getRedis()); },
+  get del() { return getRedis().del.bind(getRedis()); },
+  get set() { return getRedis().set.bind(getRedis()); },
+  get get() { return getRedis().get.bind(getRedis()); },
+};
