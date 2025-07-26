@@ -1,120 +1,100 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image from "next/image";
-import { UtensilsCrossed, Star, MapPin, Check, ArrowLeft } from "lucide-react";
-import { restaurants, Restaurant } from "@/data/venues";
-import { useSchedule } from "@/context/ScheduleContext";
+import { useState } from 'react';
+import { Utensils, MapPin, Star, DollarSign, Clock } from 'lucide-react';
+import { restaurants, Restaurant } from '@/data/venues';
+import { useSchedule } from '@/context/ScheduleContext';
 
 export default function RestaurantSelection() {
-  const { selectedRestaurants, setSelectedRestaurants, setCurrentStep } = useSchedule();
-  const [tempSelected, setTempSelected] = useState<Restaurant[]>(selectedRestaurants);
+  const { selectedRestaurant, setSelectedRestaurant, nextStep } = useSchedule();
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
-  const toggleRestaurant = (restaurant: Restaurant) => {
-    setTempSelected(prev => {
-      const isSelected = prev.some(r => r.id === restaurant.id);
-      if (isSelected) {
-        return prev.filter(r => r.id !== restaurant.id);
-      } else {
-        return [...prev, restaurant];
-      }
-    });
-  };
-
-  const handleNext = () => {
-    setSelectedRestaurants(tempSelected);
-    setCurrentStep(3);
-  };
-
-  const handleBack = () => {
-    setCurrentStep(1);
+  const handleSelect = (restaurant: Restaurant) => {
+    setSelectedRestaurant(restaurant);
+    setTimeout(() => nextStep(), 500);
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="text-center mb-8">
-        <UtensilsCrossed className="w-16 h-16 mx-auto mb-4 text-orange-600" />
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
-          Chọn Nhà Hàng
-        </h1>
-        <p className="text-gray-600">
-          Chọn những nhà hàng bạn muốn thưởng thức
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {restaurants.map((restaurant) => {
-          const isSelected = tempSelected.some(r => r.id === restaurant.id);
-          return (
-            <div
-              key={restaurant.id}
-              className={`bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transition-all duration-200 ${
-                isSelected
-                  ? "ring-2 ring-orange-500 transform scale-105"
-                  : "hover:shadow-lg hover:transform hover:scale-102"
-              }`}
-              onClick={() => toggleRestaurant(restaurant)}
-            >
-              <div className="relative">
-                <Image
-                  src={restaurant.image}
-                  alt={restaurant.name}
-                  width={300}
-                  height={192}
-                  className="w-full h-48 object-cover"
-                />
-                {isSelected && (
-                  <div className="absolute top-2 right-2 bg-orange-500 text-white rounded-full p-2">
-                    <Check className="w-4 h-4" />
-                  </div>
-                )}
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  {restaurant.name}
-                </h3>
-                <div className="flex items-center text-sm text-gray-600 mb-2">
-                  <MapPin className="w-4 h-4 mr-1" />
-                  {restaurant.address}
-                </div>
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center">
-                    <Star className="w-4 h-4 text-yellow-400 mr-1" />
-                    <span className="text-sm text-gray-600">{restaurant.rating}</span>
-                  </div>
-                  <span className="text-sm font-medium text-green-600">
-                    {restaurant.priceRange}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-500">Ẩm thực: {restaurant.cuisine}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="flex justify-between items-center">
-        <button
-          onClick={handleBack}
-          className="flex items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Quay lại
-        </button>
-        
-        <div className="text-center">
-          <p className="text-gray-600 mb-4">
-            Đã chọn {tempSelected.length} nhà hàng
+    <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-100 p-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">
+            🍽️ Chọn Nhà Hàng Ăn Tối Lãng Mạn
+          </h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Kết thúc ngày hoàn hảo với bữa tối thật ngon tại nhà hàng yêu thích! 🌟
           </p>
         </div>
 
-        <button
-          onClick={handleNext}
-          disabled={tempSelected.length === 0}
-          className="bg-orange-600 hover:bg-orange-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-medium transition-colors"
-        >
-          Tiếp theo: Xem lịch trình
-        </button>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {restaurants.map((restaurant) => (
+            <div
+              key={restaurant.id}
+              className={`bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer transform transition-all duration-300 ${
+                selectedRestaurant?.id === restaurant.id
+                  ? 'ring-4 ring-red-400 scale-105'
+                  : hoveredId === restaurant.id
+                  ? 'scale-105 shadow-xl'
+                  : 'hover:shadow-xl'
+              }`}
+              onClick={() => handleSelect(restaurant)}
+              onMouseEnter={() => setHoveredId(restaurant.id)}
+              onMouseLeave={() => setHoveredId(null)}
+            >
+              <div className="relative">
+                <img
+                  src={restaurant.image}
+                  alt={restaurant.name}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="absolute top-4 right-4 bg-white rounded-full px-3 py-1 shadow-lg">
+                  <div className="flex items-center text-yellow-500">
+                    <Star className="h-4 w-4 fill-current" />
+                    <span className="ml-1 text-sm font-semibold text-gray-700">
+                      {restaurant.rating}
+                    </span>
+                  </div>
+                </div>
+                <div className="absolute top-4 left-4 bg-red-500 text-white rounded-full p-2">
+                  <Utensils className="h-4 w-4" />
+                </div>
+              </div>
+
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-800 mb-2">
+                  {restaurant.name}
+                </h3>
+                
+                <div className="flex items-center text-gray-600 mb-2">
+                  <MapPin className="h-4 w-4 mr-2" />
+                  <span className="text-sm">{restaurant.address}</span>
+                </div>
+
+                <div className="flex items-center text-green-600 mb-3">
+                  <DollarSign className="h-4 w-4 mr-2" />
+                  <span className="text-sm font-semibold">{restaurant.priceRange}</span>
+                </div>
+
+                <div className="flex items-center text-gray-500 mb-3">
+                  <Clock className="h-4 w-4 mr-2" />
+                  <span className="text-sm">{restaurant.cuisine}</span>
+                </div>
+
+                {selectedRestaurant?.id === restaurant.id && (
+                  <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold text-center">
+                    Đã chọn 🍽️
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-8">
+          <p className="text-gray-500 italic">
+            💡 Mẹo: Pezzi là lựa chọn hàng đầu cho những buổi hẹn hò đặc biệt! 🍕💕
+          </p>
+        </div>
       </div>
     </div>
   );

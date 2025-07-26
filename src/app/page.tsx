@@ -1,33 +1,30 @@
 "use client";
 
 import { useSchedule } from "@/context/ScheduleContext";
+import LunchSelection from "@/components/LunchSelection";
 import CafeSelection from "@/components/CafeSelection";
-import RestaurantSelection from "@/components/RestaurantSelection";
+import PhotoboothSelection from "@/components/PhotoboothSelection";
 import Summary from "@/components/Summary";
-import StepIndicator from "@/components/StepIndicator";
 
 export default function Home() {
   const { currentStep } = useSchedule();
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
-            🍰 Schedule Builder
+    <main className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100">
+      <div className="bg-white/90 shadow-md border-b border-rose-200 sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <h1 className="text-center text-xl font-bold text-pink-700">
+            💕 Dating Planner - Bước {currentStep}/4
           </h1>
-          <p className="text-gray-600 text-lg">
-            Tạo lịch trình cà phê & ăn uống của bạn
-          </p>
         </div>
-
-        <StepIndicator />
-
-        <div className="max-w-4xl mx-auto mt-8">
-          {currentStep === 1 && <CafeSelection />}
-          {currentStep === 2 && <RestaurantSelection />}
-          {currentStep === 3 && <Summary />}
-        </div>
+      </div>
+      
+      <div className="pt-4">
+        {currentStep === 1 && <LunchSelection />}
+        {currentStep === 2 && <CafeSelection />}
+        {currentStep === 3 && <PhotoboothSelection />}
+        {currentStep === 4 && <Summary />}
+        <p className="text-center text-gray-600 mt-4">Testing all components...</p>
       </div>
     </main>
   );

@@ -1,174 +1,123 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { CheckCircle, Coffee, UtensilsCrossed, ArrowLeft, Star, MapPin } from "lucide-react";
-import { useSchedule } from "@/context/ScheduleContext";
+import { useState } from 'react';
+import { useSchedule } from '@/context/ScheduleContext';
 
 export default function Summary() {
-  const { selectedCafes, selectedRestaurants, setCurrentStep } = useSchedule();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
-
-  const handleConfirm = async () => {
-    if (selectedCafes.length === 0 && selectedRestaurants.length === 0) {
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      const response = await fetch("/api/schedule", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          cafes: selectedCafes,
-          restaurants: selectedRestaurants,
-        }),
-      });
-
-      if (response.ok) {
-        router.push("/history");
-      } else {
-        throw new Error("Failed to save schedule");
-      }
-    } catch (error) {
-      console.error("Error saving schedule:", error);
-      alert("Có lỗi xảy ra khi lưu lịch trình. Vui lòng thử lại.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleBack = () => {
-    setCurrentStep(2);
-  };
+  const { 
+    selectedLunch, 
+    selectedCafe, 
+    selectedPhotobooth, 
+    setCurrentStep 
+  } = useSchedule();
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="text-center mb-8">
-        <CheckCircle className="w-16 h-16 mx-auto mb-4 text-green-600" />
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
-          Xác Nhận Lịch Trình
-        </h1>
-        <p className="text-gray-600">
-          Kiểm tra lại lịch trình của bạn trước khi lưu
-        </p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 p-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            💕 Lịch Trình Hẹn Hò Của Chúng Ta
+          </h1>
+          <p className="text-lg text-gray-700 font-medium">
+            Ngày hẹn hò đặc biệt từ Edison đến về nhà! ✨
+          </p>
+        </div>
 
-      <div className="space-y-8">
-        {/* Quán Cà Phê */}
-        {selectedCafes.length > 0 && (
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <Coffee className="w-6 h-6 text-amber-600" />
-              <h2 className="text-xl font-semibold text-gray-800">
-                Quán Cà Phê ({selectedCafes.length})
-              </h2>
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            📅 Timeline Romantic
+          </h2>
+          
+          <div className="space-y-6">
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">
+                11:00
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-gray-900">🍜 Ăn trưa</h3>
+                {selectedLunch ? (
+                  <p className="text-gray-800 font-medium">{selectedLunch.name}</p>
+                ) : (
+                  <p className="text-red-600 font-semibold">Chưa chọn quán ăn trưa</p>
+                )}
+              </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {selectedCafes.map((cafe) => (
-                <div key={cafe.id} className="flex gap-4 p-4 bg-gray-50 rounded-lg">
-                  <Image
-                    src={cafe.image}
-                    alt={cafe.name}
-                    width={80}
-                    height={80}
-                    className="w-20 h-20 object-cover rounded-lg"
-                  />
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-gray-800">{cafe.name}</h3>
-                    <div className="flex items-center text-sm text-gray-600 mb-1">
-                      <MapPin className="w-3 h-3 mr-1" />
-                      {cafe.address}
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <Star className="w-3 h-3 text-yellow-400 mr-1" />
-                        <span className="text-sm">{cafe.rating}</span>
-                      </div>
-                      <span className="text-sm font-medium text-green-600">
-                        {cafe.priceRange}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
 
-        {/* Nhà Hàng */}
-        {selectedRestaurants.length > 0 && (
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <UtensilsCrossed className="w-6 h-6 text-orange-600" />
-              <h2 className="text-xl font-semibold text-gray-800">
-                Nhà Hàng ({selectedRestaurants.length})
-              </h2>
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold">
+                13:30
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-gray-900">☕ Cafe & Makeup</h3>
+                {selectedCafe ? (
+                  <p className="text-gray-800 font-medium">{selectedCafe.name}</p>
+                ) : (
+                  <p className="text-red-600 font-semibold">Chưa chọn quán cafe</p>
+                )}
+              </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {selectedRestaurants.map((restaurant) => (
-                <div key={restaurant.id} className="flex gap-4 p-4 bg-gray-50 rounded-lg">
-                  <Image
-                    src={restaurant.image}
-                    alt={restaurant.name}
-                    width={80}
-                    height={80}
-                    className="w-20 h-20 object-cover rounded-lg"
-                  />
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-gray-800">{restaurant.name}</h3>
-                    <div className="flex items-center text-sm text-gray-600 mb-1">
-                      <MapPin className="w-3 h-3 mr-1" />
-                      {restaurant.address}
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <Star className="w-3 h-3 text-yellow-400 mr-1" />
-                        <span className="text-sm">{restaurant.rating}</span>
-                      </div>
-                      <span className="text-sm font-medium text-green-600">
-                        {restaurant.priceRange}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
+
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                15:00
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-gray-900">📸 Photobooth</h3>
+                {selectedPhotobooth ? (
+                  <p className="text-gray-800 font-medium">{selectedPhotobooth.name}</p>
+                ) : (
+                  <p className="text-red-600 font-semibold">Chưa chọn photobooth</p>
+                )}
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">
+                17:30
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-gray-900">🍽️ Dinner tại Pezzi</h3>
+                <p className="text-gray-800 font-medium">Pezzi - Western & Wine</p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold">
+                20:00
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-gray-900">🏍️ Lượn lờ xe máy</h3>
+                <p className="text-gray-800 font-medium">Tận hưởng không khí đêm thành phố</p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                22:00
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-gray-900">🏠 Đưa em về nhà</h3>
+                <p className="text-gray-800 font-medium">Kết thúc ngày hẹn hò đáng nhớ</p>
+              </div>
             </div>
           </div>
-        )}
 
-        {/* Nếu không có gì được chọn */}
-        {selectedCafes.length === 0 && selectedRestaurants.length === 0 && (
-          <div className="text-center py-8">
-            <p className="text-gray-500 text-lg">
-              Bạn chưa chọn quán nào. Vui lòng quay lại để chọn.
-            </p>
+          <div className="mt-8 flex justify-between">
+            <button
+              onClick={() => setCurrentStep(3)}
+              className="px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors"
+            >
+              ← Quay lại
+            </button>
+            
+            <button
+              disabled={!selectedLunch || !selectedCafe || !selectedPhotobooth}
+              className="px-8 py-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 disabled:from-gray-300 disabled:to-gray-400 text-white rounded-lg font-medium transition-colors"
+            >
+              💕 Xác nhận lịch trình
+            </button>
           </div>
-        )}
-      </div>
-
-      <div className="flex justify-between items-center mt-8">
-        <button
-          onClick={handleBack}
-          className="flex items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Quay lại
-        </button>
-
-        <button
-          onClick={handleConfirm}
-          disabled={
-            isSubmitting || (selectedCafes.length === 0 && selectedRestaurants.length === 0)
-          }
-          className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-medium transition-colors"
-        >
-          {isSubmitting ? "Đang lưu..." : "Xác nhận lịch trình"}
-        </button>
+        </div>
       </div>
     </div>
   );
