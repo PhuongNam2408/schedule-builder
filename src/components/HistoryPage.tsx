@@ -104,7 +104,7 @@ export default function HistoryPage() {
                   20:00
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-gray-900">�️ Lượn lờ xe máy</h3>
+                  <h3 className="font-bold text-lg text-gray-900">🏍️ Lượn lờ xe máy</h3>
                   <p className="text-gray-800 font-medium">Tận hưởng không khí đêm thành phố</p>
                 </div>
               </div>

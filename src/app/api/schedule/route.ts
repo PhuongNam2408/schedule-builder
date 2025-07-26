@@ -5,6 +5,21 @@ import { nanoid } from "nanoid";
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
+    
+    // If saving entire schedules array
+    if (data.schedules) {
+      // Clear existing schedules
+      await redis.del("schedules");
+      
+      // Save each schedule
+      for (const schedule of data.schedules) {
+        await redis.lpush("schedules", JSON.stringify(schedule));
+      }
+      
+      return NextResponse.json({ success: true, count: data.schedules.length }, { status: 200 });
+    }
+    
+    // Legacy: saving single schedule
     const record = {
       id: nanoid(8),
       ...data,
@@ -49,7 +64,7 @@ export async function GET() {
       }
     }).filter(item => item !== null); // Loại bỏ các item lỗi
     
-    return NextResponse.json(schedules);
+    return NextResponse.json({ schedules });
   } catch (error) {
     console.error("Error fetching schedules:", error);
     return NextResponse.json(

@@ -65,22 +65,48 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
   
   const [currentStep, setCurrentStep] = useState(0); // Start at 0 for history page
 
-  // Load history from localStorage on mount
+  // Load history from API on mount
   useEffect(() => {
-    const savedHistory = localStorage.getItem('dating-schedule-history');
-    if (savedHistory) {
+    const loadHistory = async () => {
       try {
-        setScheduleHistory(JSON.parse(savedHistory));
+        const response = await fetch('/api/schedule');
+        if (response.ok) {
+          const data = await response.json();
+          setScheduleHistory(data.schedules || []);
+        }
       } catch (error) {
         console.error('Error loading schedule history:', error);
+        // Fallback to localStorage if API fails
+        const savedHistory = localStorage.getItem('dating-schedule-history');
+        if (savedHistory) {
+          try {
+            setScheduleHistory(JSON.parse(savedHistory));
+          } catch (error) {
+            console.error('Error loading from localStorage:', error);
+          }
+        }
       }
-    }
+    };
+    
+    loadHistory();
   }, []);
 
-  // Save history to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem('dating-schedule-history', JSON.stringify(scheduleHistory));
-  }, [scheduleHistory]);
+  // Remove localStorage sync as we're using API now
+  const saveToAPI = async (newHistory: ScheduleHistory[]) => {
+    try {
+      await fetch('/api/schedule', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ schedules: newHistory }),
+      });
+    } catch (error) {
+      console.error('Error saving to API:', error);
+      // Fallback to localStorage
+      localStorage.setItem('dating-schedule-history', JSON.stringify(newHistory));
+    }
+  };
 
   const nextStep = () => {
     if (currentStep < 4) {
@@ -94,7 +120,7 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const saveCurrentSchedule = () => {
+  const saveCurrentSchedule = async () => {
     console.log('Saving schedule with:', { selectedLunch, selectedCafe, selectedPhotobooth });
     
     if (selectedLunch && selectedCafe && selectedPhotobooth) {
@@ -103,10 +129,8 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
         id: 'pezzi',
         name: 'Pezzi',
         address: 'Edison',
-        rating: 4.5,
-        priceRange: '200-400k',
         image: '/images/pezzi.jpg',
-        cuisine: 'Italian'
+        tiktokUrl: 'https://www.tiktok.com/@pezzirestaurant'
       };
 
       const newSchedule: ScheduleHistory = {
@@ -119,18 +143,20 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
       };
       
       console.log('Adding new schedule:', newSchedule);
-      setScheduleHistory(prev => {
-        const updated = [newSchedule, ...prev];
-        console.log('Updated history:', updated);
-        return updated;
-      });
+      const updatedHistory = [newSchedule, ...scheduleHistory];
+      setScheduleHistory(updatedHistory);
+      console.log('Updated history:', updatedHistory);
+      
+      // Save to API
+      await saveToAPI(updatedHistory);
     } else {
       console.log('Missing selections:', { selectedLunch: !!selectedLunch, selectedCafe: !!selectedCafe, selectedPhotobooth: !!selectedPhotobooth });
     }
   };
 
-  const clearHistory = () => {
+  const clearHistory = async () => {
     setScheduleHistory([]);
+    await saveToAPI([]);
   };
 
   const resetSelections = () => {

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Clock, MapPin, Star, DollarSign } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import { lunchPlaces, LunchPlace } from '@/data/venues';
 import { useSchedule } from '@/context/ScheduleContext';
 
@@ -18,6 +18,17 @@ export default function LunchSelection() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 p-6">
       <div className="max-w-6xl mx-auto">
+        {/* Back button */}
+        <div className="mb-6">
+          <button
+            onClick={() => setCurrentStep(0)}
+            className="flex items-center space-x-2 bg-gray-500 text-white px-4 py-2 rounded-full hover:bg-gray-600 transition-colors font-medium"
+          >
+            <span>←</span>
+            <span>Về trang chủ</span>
+          </button>
+        </div>
+
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             💕 Chọn Quán Ăn Trưa Lãng Mạn
@@ -50,14 +61,6 @@ export default function LunchSelection() {
                   height={192}
                   className="w-full h-48 object-cover"
                 />
-                <div className="absolute top-4 right-4 bg-white rounded-full px-3 py-1 shadow-lg">
-                  <div className="flex items-center text-yellow-500">
-                    <Star className="h-4 w-4 fill-current" />
-                    <span className="ml-1 text-sm font-semibold text-gray-700">
-                      {lunch.rating}
-                    </span>
-                  </div>
-                </div>
               </div>
 
               <div className="p-6">
@@ -65,21 +68,21 @@ export default function LunchSelection() {
                   {lunch.name}
                 </h3>
                 
-                <div className="flex items-center text-gray-600 mb-2">
+                <div className="flex items-center text-gray-600 mb-3">
                   <MapPin className="h-4 w-4 mr-2" />
                   <span className="text-sm">{lunch.address}</span>
                 </div>
 
-                <div className="flex items-center text-green-600 mb-3">
-                  <DollarSign className="h-4 w-4 mr-2" />
-                  <span className="text-sm font-semibold">{lunch.priceRange}</span>
-                </div>
-
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center text-gray-500">
-                    <Clock className="h-4 w-4 mr-1" />
-                    <span className="text-sm">{lunch.cuisine}</span>
-                  </div>
+                  <a 
+                    href={lunch.tiktokUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center text-pink-500 hover:text-pink-600 text-sm font-medium"
+                  >
+                    <span className="mr-1">📱</span>
+                    <span>Xem TikTok</span>
+                  </a>
                   
                   {selectedLunch?.id === lunch.id && (
                     <div className="bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
@@ -93,16 +96,9 @@ export default function LunchSelection() {
         </div>
 
         <div className="text-center mt-8">
-          <p className="text-gray-500 italic mb-6">
+          <p className="text-gray-500 italic">
             💡 Mẹo: Chọn quán gần Edison để tiết kiệm thời gian di chuyển nhé!
           </p>
-          
-          <button
-            onClick={() => setCurrentStep(0)}
-            className="bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition-colors font-medium"
-          >
-            ← Về trang chủ
-          </button>
         </div>
       </div>
     </div>
