@@ -7,7 +7,7 @@ import { photobooths, Photobooth } from '@/data/venues';
 import { useSchedule } from '@/context/ScheduleContext';
 
 export default function PhotoboothSelection() {
-  const { selectedPhotobooth, setSelectedPhotobooth, nextStep } = useSchedule();
+  const { selectedPhotobooth, setSelectedPhotobooth, nextStep, prevStep } = useSchedule();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const handleSelect = (photobooth: Photobooth) => {
@@ -94,9 +94,16 @@ export default function PhotoboothSelection() {
         </div>
 
         <div className="text-center mt-8">
-          <p className="text-gray-500 italic">
+          <p className="text-gray-500 italic mb-6">
             💡 Mẹo: Nhớ book trước để có slot đẹp nhất nhé! 📱
           </p>
+          
+          <button
+            onClick={prevStep}
+            className="bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition-colors font-medium"
+          >
+            ← Quay lại chọn quán cafe
+          </button>
         </div>
       </div>
     </div>

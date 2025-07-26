@@ -1,7 +1,17 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { Cafe, Restaurant, LunchPlace, Photobooth } from "@/data/venues";
+
+// History type for storing completed schedules
+export interface ScheduleHistory {
+  id: string;
+  date: string;
+  lunch: LunchPlace;
+  cafe: Cafe;
+  photobooth: Photobooth;
+  restaurant: Restaurant;
+}
 
 interface ScheduleContextType {
   // Selections
@@ -21,6 +31,14 @@ interface ScheduleContextType {
   setCurrentStep: (step: number) => void;
   nextStep: () => void;
   prevStep: () => void;
+  
+  // History
+  scheduleHistory: ScheduleHistory[];
+  saveCurrentSchedule: () => void;
+  clearHistory: () => void;
+  
+  // Reset
+  resetSelections: () => void;
   
   // Legacy (for backward compatibility)
   selectedCafes: Cafe[];
@@ -42,7 +60,27 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
   const [selectedCafes, setSelectedCafes] = useState<Cafe[]>([]);
   const [selectedRestaurants, setSelectedRestaurants] = useState<Restaurant[]>([]);
   
-  const [currentStep, setCurrentStep] = useState(1);
+  // History state
+  const [scheduleHistory, setScheduleHistory] = useState<ScheduleHistory[]>([]);
+  
+  const [currentStep, setCurrentStep] = useState(0); // Start at 0 for history page
+
+  // Load history from localStorage on mount
+  useEffect(() => {
+    const savedHistory = localStorage.getItem('dating-schedule-history');
+    if (savedHistory) {
+      try {
+        setScheduleHistory(JSON.parse(savedHistory));
+      } catch (error) {
+        console.error('Error loading schedule history:', error);
+      }
+    }
+  }, []);
+
+  // Save history to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('dating-schedule-history', JSON.stringify(scheduleHistory));
+  }, [scheduleHistory]);
 
   const nextStep = () => {
     if (currentStep < 4) {
@@ -51,9 +89,36 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
   };
 
   const prevStep = () => {
-    if (currentStep > 1) {
+    if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
+  };
+
+  const saveCurrentSchedule = () => {
+    if (selectedLunch && selectedCafe && selectedPhotobooth && selectedRestaurant) {
+      const newSchedule: ScheduleHistory = {
+        id: Date.now().toString(),
+        date: new Date().toLocaleDateString('vi-VN'),
+        lunch: selectedLunch,
+        cafe: selectedCafe,
+        photobooth: selectedPhotobooth,
+        restaurant: selectedRestaurant,
+      };
+      
+      setScheduleHistory(prev => [newSchedule, ...prev]);
+    }
+  };
+
+  const clearHistory = () => {
+    setScheduleHistory([]);
+  };
+
+  const resetSelections = () => {
+    setSelectedLunch(null);
+    setSelectedCafe(null);
+    setSelectedPhotobooth(null);
+    setSelectedRestaurant(null);
+    setCurrentStep(0); // Go back to history page
   };
 
   return (
@@ -74,6 +139,12 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
         setCurrentStep,
         nextStep,
         prevStep,
+        
+        // History
+        scheduleHistory,
+        saveCurrentSchedule,
+        clearHistory,
+        resetSelections,
         
         // Legacy
         selectedCafes,

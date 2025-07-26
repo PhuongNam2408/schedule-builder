@@ -7,7 +7,7 @@ import { cafes, Cafe } from "@/data/venues";
 import { useSchedule } from "@/context/ScheduleContext";
 
 export default function CafeSelection() {
-  const { selectedCafe, setSelectedCafe, nextStep } = useSchedule();
+  const { selectedCafe, setSelectedCafe, nextStep, prevStep } = useSchedule();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const handleSelect = (cafe: Cafe) => {
@@ -88,9 +88,16 @@ export default function CafeSelection() {
         </div>
 
         <div className="text-center mt-8">
-          <p className="text-gray-500 italic">
+          <p className="text-gray-500 italic mb-6">
             💡 Mẹo: Chọn quán có không gian đẹp để em có thể quay TikTok thỏa thích! 📸
           </p>
+          
+          <button
+            onClick={prevStep}
+            className="bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition-colors font-medium"
+          >
+            ← Quay lại chọn quán trưa
+          </button>
         </div>
       </div>
     </div>

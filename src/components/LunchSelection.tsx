@@ -7,7 +7,7 @@ import { lunchPlaces, LunchPlace } from '@/data/venues';
 import { useSchedule } from '@/context/ScheduleContext';
 
 export default function LunchSelection() {
-  const { selectedLunch, setSelectedLunch, nextStep } = useSchedule();
+  const { selectedLunch, setSelectedLunch, nextStep, setCurrentStep } = useSchedule();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const handleSelect = (lunch: LunchPlace) => {
@@ -93,9 +93,16 @@ export default function LunchSelection() {
         </div>
 
         <div className="text-center mt-8">
-          <p className="text-gray-500 italic">
+          <p className="text-gray-500 italic mb-6">
             💡 Mẹo: Chọn quán gần Edison để tiết kiệm thời gian di chuyển nhé!
           </p>
+          
+          <button
+            onClick={() => setCurrentStep(0)}
+            className="bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition-colors font-medium"
+          >
+            ← Về trang chủ
+          </button>
         </div>
       </div>
     </div>
