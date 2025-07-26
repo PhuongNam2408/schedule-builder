@@ -95,17 +95,37 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
   };
 
   const saveCurrentSchedule = () => {
-    if (selectedLunch && selectedCafe && selectedPhotobooth && selectedRestaurant) {
+    console.log('Saving schedule with:', { selectedLunch, selectedCafe, selectedPhotobooth });
+    
+    if (selectedLunch && selectedCafe && selectedPhotobooth) {
+      // Create a mock restaurant for Pezzi since it's hardcoded
+      const pezziRestaurant: Restaurant = {
+        id: 'pezzi',
+        name: 'Pezzi',
+        address: 'Edison',
+        rating: 4.5,
+        priceRange: '200-400k',
+        image: '/images/pezzi.jpg',
+        cuisine: 'Italian'
+      };
+
       const newSchedule: ScheduleHistory = {
         id: Date.now().toString(),
         date: new Date().toLocaleDateString('vi-VN'),
         lunch: selectedLunch,
         cafe: selectedCafe,
         photobooth: selectedPhotobooth,
-        restaurant: selectedRestaurant,
+        restaurant: pezziRestaurant,
       };
       
-      setScheduleHistory(prev => [newSchedule, ...prev]);
+      console.log('Adding new schedule:', newSchedule);
+      setScheduleHistory(prev => {
+        const updated = [newSchedule, ...prev];
+        console.log('Updated history:', updated);
+        return updated;
+      });
+    } else {
+      console.log('Missing selections:', { selectedLunch: !!selectedLunch, selectedCafe: !!selectedCafe, selectedPhotobooth: !!selectedPhotobooth });
     }
   };
 

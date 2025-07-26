@@ -5,6 +5,8 @@ import { useSchedule } from '@/context/ScheduleContext';
 export default function HistoryPage() {
   const { scheduleHistory, clearHistory, setCurrentStep } = useSchedule();
 
+  console.log('HistoryPage - scheduleHistory:', scheduleHistory, 'length:', scheduleHistory.length);
+
   const startNewSchedule = () => {
     setCurrentStep(1);
   };
