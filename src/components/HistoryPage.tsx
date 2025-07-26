@@ -11,6 +11,9 @@ export default function HistoryPage() {
     setCurrentStep(1);
   };
 
+  // Get the latest schedule (first item in array since we add new ones at the beginning)
+  const latestSchedule = scheduleHistory.length > 0 ? scheduleHistory[0] : null;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 p-6">
       <div className="max-w-6xl mx-auto">
@@ -34,80 +37,90 @@ export default function HistoryPage() {
           </div>
         </div>
 
-        {scheduleHistory.length > 0 && (
+        {latestSchedule ? (
           <div className="bg-white rounded-2xl shadow-lg p-8">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">
-                📅 Lịch Sử Hẹn Hò ({scheduleHistory.length})
-              </h2>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  📅 Lịch Trình Hẹn Hò Gần Nhất
+                </h2>
+                <p className="text-gray-600 mt-1">💕 {latestSchedule.date}</p>
+              </div>
               <button
                 onClick={clearHistory}
                 className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium transition-colors"
               >
-                🗑️ Xóa tất cả
+                🗑️ Xóa lịch sử
               </button>
             </div>
             
             <div className="space-y-6">
-              {scheduleHistory.map((history) => (
-                <div key={history.id} className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl p-6 border border-pink-200 shadow-sm">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-xl font-bold text-pink-700 mb-1">
-                        💕 {history.date}
-                      </h3>
-                      <p className="text-gray-600">Timeline: 11:00 - 22:00</p>
-                    </div>
-                  </div>
-                  
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <div className="flex items-center mb-2">
-                        <span className="text-2xl mr-2">🍽️</span>
-                        <span className="font-semibold text-gray-700">Quán Trưa</span>
-                      </div>
-                      <h4 className="font-bold text-gray-900">{history.lunch.name}</h4>
-                      <p className="text-sm text-gray-600">{history.lunch.address}</p>
-                      <p className="text-sm text-pink-600">11:00 - 13:00</p>
-                    </div>
-                    
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <div className="flex items-center mb-2">
-                        <span className="text-2xl mr-2">☕</span>
-                        <span className="font-semibold text-gray-700">Quán Cafe</span>
-                      </div>
-                      <h4 className="font-bold text-gray-900">{history.cafe.name}</h4>
-                      <p className="text-sm text-gray-600">{history.cafe.address}</p>
-                      <p className="text-sm text-amber-600">13:30 - 16:00</p>
-                    </div>
-                    
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <div className="flex items-center mb-2">
-                        <span className="text-2xl mr-2">📸</span>
-                        <span className="font-semibold text-gray-700">Photobooth</span>
-                      </div>
-                      <h4 className="font-bold text-gray-900">{history.photobooth.name}</h4>
-                      <p className="text-sm text-gray-600">{history.photobooth.address}</p>
-                      <p className="text-sm text-purple-600">16:30 - 18:00</p>
-                    </div>
-                    
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <div className="flex items-center mb-2">
-                        <span className="text-2xl mr-2">🍽️</span>
-                        <span className="font-semibold text-gray-700">Quán Tối</span>
-                      </div>
-                      <h4 className="font-bold text-gray-900">Pezzi</h4>
-                      <p className="text-sm text-gray-600">Edison</p>
-                      <p className="text-sm text-rose-600">19:00 - 21:30</p>
-                    </div>
-                  </div>
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">
+                  11:00
                 </div>
-              ))}
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">🍜 Ăn trưa</h3>
+                  <p className="text-gray-800 font-medium">{latestSchedule.lunch.name}</p>
+                  <p className="text-sm text-gray-600">{latestSchedule.lunch.address}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold">
+                  13:30
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">☕ Cafe & Makeup</h3>
+                  <p className="text-gray-800 font-medium">{latestSchedule.cafe.name}</p>
+                  <p className="text-sm text-gray-600">{latestSchedule.cafe.address}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                  15:00
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">📸 Photobooth</h3>
+                  <p className="text-gray-800 font-medium">{latestSchedule.photobooth.name}</p>
+                  <p className="text-sm text-gray-600">{latestSchedule.photobooth.address}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">
+                  17:30
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">🍽️ Dinner tại Pezzi</h3>
+                  <p className="text-gray-800 font-medium">Pezzi - Western & Wine</p>
+                  <p className="text-sm text-gray-600">Edison</p>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold">
+                  20:00
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">�️ Lượn lờ xe máy</h3>
+                  <p className="text-gray-800 font-medium">Tận hưởng không khí đêm thành phố</p>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                  22:00
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">🏠 Đưa em về nhà</h3>
+                  <p className="text-gray-800 font-medium">Kết thúc ngày hẹn hò đáng nhớ</p>
+                </div>
+              </div>
             </div>
           </div>
-        )}
-
-        {scheduleHistory.length === 0 && (
+        ) : (
           <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
             <div className="text-6xl mb-4">💕</div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">
