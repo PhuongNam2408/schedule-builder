@@ -58,38 +58,45 @@ export const cafes: Cafe[] = [
 export const lunchPlaces: LunchPlace[] = [
   {
     id: "1",
-    name: "Quán Cơm Tấm Sài Gòn",
-    address: "246 Bùi Viện, Q1, TP.HCM",
-    image: "https://picsum.photos/300/200?random=21",
-    tiktokUrl: "https://www.tiktok.com/@comtamsaigon"
+    name: "Bánh cuốn Cao Bằng",
+    address: "29 Ng. 154 Đ. Ngọc Lâm, Ngọc Lâm, Long Biên, Hà Nội",
+    image: "https://lh3.googleusercontent.com/p/AF1QipM8JTVe-EXxW1iBCkG8c55GsW4uYzAvkenTys6J=s1360-w1360-h1020",
+    tiktokUrl: ""
   },
   {
     id: "2",
-    name: "Phở Hòa Pasteur",
-    address: "421A Pasteur, Q3, TP.HCM",
-    image: "https://picsum.photos/300/200?random=22",
-    tiktokUrl: "https://www.tiktok.com/@phohoapasteur"
+    name: "Bún Riêu Cua Hà",
+    address: "120 P. Ái Mộ, Bồ Đề, Long Biên, Hà Nội",
+    image: "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqrAYEvb_-q8hcxE4r0XGXgz9lE59rkXuwA5ZqICxJtQDMG9TSshCjQXiauFyH-NlRZLYsfZU7QIHDvbNqnCtVPcBn8sJIh-zVUAp5UFEoREdpjJ4YHaxWKjigNvLQZovu0xonP=s1360-w1360-h10202",
+    tiktokUrl: ""
   },
   {
     id: "3",
-    name: "Bún Bò Huế Cô Ba",
-    address: "159 Pasteur, Q1, TP.HCM",
-    image: "https://picsum.photos/300/200?random=23",
-    tiktokUrl: "https://www.tiktok.com/@bunbohuecoba"
+    name: "Mỳ Tâm - Mỳ hải sản chua cay",
+    address: "97 P. Long Biên 1, Ngọc Lâm, Long Biên, Hà Nội",
+    image: "https://lh3.googleusercontent.com/p/AF1QipNMQ-KpTnyRvHTwKb9OJB34iC3JbDI5YQ9R3-rO=s1360-w1360-h1020",
+    tiktokUrl: ""
   },
   {
     id: "4",
-    name: "Lotteria",
-    address: "135 Nguyễn Thái Học, Q1, TP.HCM",
-    image: "https://picsum.photos/300/200?random=24",
-    tiktokUrl: "https://www.tiktok.com/@lotteria"
+    name: "Quán Bún Thủy",
+    address: "98 Đ. Trần Nhật Duật, Hàng Buồm, Hoàn Kiếm, Hà Nội",
+    image: "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrPCYdu5ZyHSUSe_vqElD6RiyYc2L8q21Cx1X2YW9LQ0F7Jy3XRrT8QyJutS-CG7TAUn0xMpEgGkScoBMQVYWpvQDS9HodA6quubil35K0UZ5MTNYjN8Dlo4lJnGjbDl7IZcvY5_MPUesTh=s1360-w1360-h1020",
+    tiktokUrl: ""
   },
   {
     id: "5",
-    name: "Pizza Hut",
-    address: "987 Trần Hưng Đạo, Q5, TP.HCM",
-    image: "https://picsum.photos/300/200?random=25",
-    tiktokUrl: "https://www.tiktok.com/@pizzahut"
+    name: "Bún Chả Hoa - Ngọc Lâm",
+    address: "70 Ng. 154 Đ. Ngọc Lâm, Ngọc Lâm, Long Biên, Hà Nội",
+    image: "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqdUBUqDIhucaeGK6Cq-cuaR2gxQS_fcvjA3UfPzsOR0euuENVc8tyuxihrFQGILw5ERIQgcIexh3MGQqkMrZcq4zMUsWu4RhhE0_Z6D2nwKRftkY3RaiFY0foqVksPWHASJLoHsw=s1360-w1360-h1020",
+    tiktokUrl: ""
+  },
+  {
+    id: "6",
+    name: "Vịt quay Hoàng Tiến (Phở/Xôi)",
+    address: "58 Ng. 154 Đ. Ngọc Lâm, Ngọc Lâm, Long Biên, Hà Nội",
+    image: "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nq56dtA52F71fnZyEq8Bzrd5kdEMVowCj7YKunMGCr-Acp3eb_CFj64gfCrslWIHmGgMiWLXUwqimOpJoUHdWBRwKJGBWg6YPrVbtDPlSPMrPDVGWe-DugG8QJ0Cz88vKqnsKdy7FHutmbj=s1360-w1360-h1020",
+    tiktokUrl: ""
   }
 ];
 
@@ -165,7 +172,7 @@ export const restaurants: Restaurant[] = [
 
 // Default selections cho lịch trình
 export const defaultSelections = {
-  lunch: lunchPlaces.find(place => place.id === "2"), // Phở Hòa Pasteur
-  cafe: cafes.find(cafe => cafe.id === "1"), // Ơn giời Tahu ngon đây rồi
-  photobooth: photobooths.find(booth => booth.id === "1") // Mothaiba - Hoàn Kiếm
+  lunch: lunchPlaces.find(place => place.id === "1"), // Bánh cuốn Cao Bằng
+  cafe: cafes.find(cafe => cafe.id === "3"), // Le Petit Cafe
+  photobooth: photobooths.find(booth => booth.id === "3") // Photo Palatte
 };
