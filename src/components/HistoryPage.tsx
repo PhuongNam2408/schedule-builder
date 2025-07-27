@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSchedule } from '@/context/ScheduleContext';
+import UserProfile from '@/components/UserProfile';
 
 export default function HistoryPage() {
   const { scheduleHistory, clearHistory, setCurrentStep, loadDefaultSchedule } = useSchedule();
@@ -36,6 +37,9 @@ export default function HistoryPage() {
   return (
     <div className="min-h-screen p-6">
       <div className="max-w-6xl mx-auto">
+        {/* User Profile */}
+        <UserProfile />
+        
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-red-600 mb-4 drop-shadow-lg">
             💕 Dating Planner

@@ -1,6 +1,8 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
 import { useSchedule } from "@/context/ScheduleContext";
+import LoginForm from "@/components/LoginForm";
 import HistoryPage from "@/components/HistoryPage";
 import LunchSelection from "@/components/LunchSelection";
 import CafeSelection from "@/components/CafeSelection";
@@ -10,7 +12,25 @@ import ScrollToTop from "@/components/ScrollToTop";
 import DynamicBackground from "@/components/DynamicBackground";
 
 export default function Home() {
+  const { user, isLoading } = useAuth();
   const { currentStep } = useSchedule();
+
+  // Show loading while checking auth
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mb-4 mx-auto"></div>
+          <p className="text-gray-600">Đang tải...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show login form if not authenticated
+  if (!user) {
+    return <LoginForm onSuccess={() => {}} />;
+  }
 
   const getStepTitle = () => {
     switch (currentStep) {
