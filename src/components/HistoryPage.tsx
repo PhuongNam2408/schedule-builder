@@ -5,7 +5,7 @@ import { useSchedule } from '@/context/ScheduleContext';
 
 export default function HistoryPage() {
   const { scheduleHistory, clearHistory, setCurrentStep, loadDefaultSchedule } = useSchedule();
-  const [hasInitialized, setHasInitialized] = useState(false);
+  const [shouldLoadDefault, setShouldLoadDefault] = useState(false);
 
   console.log('HistoryPage - scheduleHistory:', scheduleHistory, 'length:', scheduleHistory.length);
 
@@ -13,19 +13,19 @@ export default function HistoryPage() {
     setCurrentStep(1);
   };
 
-  // Chỉ auto-load default schedule một lần duy nhất khi app khởi động và thực sự không có data
+  // Chỉ load default khi có flag explicit
   useEffect(() => {
-    if (!hasInitialized) {
-      // Đợi một chút để API load xong
-      setTimeout(() => {
-        if (scheduleHistory.length === 0) {
-          console.log('First time load - no schedule history found, loading default schedule...');
-          loadDefaultSchedule();
-        }
-        setHasInitialized(true);
-      }, 1000);
+    if (shouldLoadDefault && scheduleHistory.length === 0) {
+      console.log('Loading default schedule as requested...');
+      loadDefaultSchedule();
+      setShouldLoadDefault(false);
     }
-  }, [hasInitialized, loadDefaultSchedule, scheduleHistory.length]);
+  }, [shouldLoadDefault, scheduleHistory.length, loadDefaultSchedule]);
+
+  // Function để trigger load default (chỉ được gọi từ clearHistory hoặc user action)
+  const handleLoadDefault = () => {
+    setShouldLoadDefault(true);
+  };
 
   // Get the latest schedule (first item in array since we add new ones at the beginning)
   const latestSchedule = scheduleHistory.length > 0 ? scheduleHistory[0] : null;
@@ -158,12 +158,20 @@ export default function HistoryPage() {
             <p className="text-gray-600 mb-6">
               Hãy tạo lịch trình đầu tiên cho chúng ta nhé!
             </p>
-            <button
-              onClick={startNewSchedule}
-              className="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
-            >
-              Bắt đầu ngay 💕
-            </button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={startNewSchedule}
+                className="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition-colors"
+              >
+                Tạo lịch trình mới 💕
+              </button>
+              <button
+                onClick={handleLoadDefault}
+                className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors"
+              >
+                Sử dụng lịch trình mặc định ✨
+              </button>
+            </div>
           </div>
         )}
       </div>
