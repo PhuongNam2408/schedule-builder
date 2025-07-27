@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { Cafe, Restaurant, LunchPlace, Photobooth } from "@/data/venues";
+import { Cafe, Restaurant, LunchPlace, Photobooth, defaultSelections } from "@/data/venues";
 
 // History type for storing completed schedules
 export interface ScheduleHistory {
@@ -36,6 +36,7 @@ interface ScheduleContextType {
   scheduleHistory: ScheduleHistory[];
   saveCurrentSchedule: () => void;
   clearHistory: () => void;
+  loadDefaultSchedule: () => void;
   
   // Reset
   resetSelections: () => void;
@@ -186,12 +187,20 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
       
       if (response.ok) {
         setScheduleHistory([]);
+        // Tự động load default schedule sau khi clear
+        setTimeout(() => {
+          loadDefaultSchedule();
+        }, 500);
       }
     } catch (error) {
       console.error('Error clearing history:', error);
       // Fallback to localStorage clear
       localStorage.removeItem('dating-schedule-history');
       setScheduleHistory([]);
+      // Tự động load default schedule sau khi clear
+      setTimeout(() => {
+        loadDefaultSchedule();
+      }, 500);
     }
   };
 
@@ -201,6 +210,35 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
     setSelectedPhotobooth(null);
     setSelectedRestaurant(null);
     setCurrentStep(0); // Go back to history page
+  };
+
+  const loadDefaultSchedule = async () => {
+    // Tạo lịch trình default
+    const pezziRestaurant: Restaurant = {
+      id: 'pezzi-default',
+      name: 'Pezzi - Western & Wine',
+      address: 'Edison',
+      image: '/images/pezzi.jpg',
+      tiktokUrl: 'https://www.tiktok.com/@pezzirestaurant'
+    };
+
+    const defaultSchedule: ScheduleHistory = {
+      id: `default-${Date.now()}`,
+      date: new Date().toLocaleDateString('vi-VN'),
+      lunch: defaultSelections.lunch!,
+      cafe: defaultSelections.cafe!,
+      photobooth: defaultSelections.photobooth!,
+      restaurant: pezziRestaurant,
+    };
+
+    // Thêm vào local state
+    const updatedHistory = [defaultSchedule, ...scheduleHistory];
+    setScheduleHistory(updatedHistory);
+    
+    console.log('Loaded default schedule:', defaultSchedule);
+    
+    // Lưu vào shared database
+    await saveNewScheduleToAPI(defaultSchedule);
   };
 
   return (
@@ -226,6 +264,7 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
         scheduleHistory,
         saveCurrentSchedule,
         clearHistory,
+        loadDefaultSchedule,
         resetSelections,
         
         // Legacy

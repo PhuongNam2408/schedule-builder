@@ -169,3 +169,10 @@ export const restaurants: Restaurant[] = [
     tiktokUrl: "https://www.tiktok.com/@hotpotstory"
   }
 ];
+
+// Default selections cho lịch trình
+export const defaultSelections = {
+  lunch: lunchPlaces.find(place => place.id === "2"), // Phở Hòa Pasteur
+  cafe: cafes.find(cafe => cafe.id === "1"), // The Coffee House
+  photobooth: photobooths.find(booth => booth.id === "1") // Heekcaa Studio
+};

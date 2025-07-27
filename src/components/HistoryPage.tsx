@@ -1,9 +1,10 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useSchedule } from '@/context/ScheduleContext';
 
 export default function HistoryPage() {
-  const { scheduleHistory, clearHistory, setCurrentStep } = useSchedule();
+  const { scheduleHistory, clearHistory, setCurrentStep, loadDefaultSchedule } = useSchedule();
 
   console.log('HistoryPage - scheduleHistory:', scheduleHistory, 'length:', scheduleHistory.length);
 
@@ -11,8 +12,19 @@ export default function HistoryPage() {
     setCurrentStep(1);
   };
 
+  // Auto-load default schedule nếu chưa có lịch sử nào
+  useEffect(() => {
+    if (scheduleHistory.length === 0) {
+      console.log('No schedule history found, loading default schedule...');
+      loadDefaultSchedule();
+    }
+  }, [scheduleHistory.length, loadDefaultSchedule]);
+
   // Get the latest schedule (first item in array since we add new ones at the beginning)
   const latestSchedule = scheduleHistory.length > 0 ? scheduleHistory[0] : null;
+  
+  // Check if the latest schedule is a default one
+  const isDefaultSchedule = latestSchedule?.id.startsWith('default-');
 
   return (
     <div className="min-h-screen p-6">
@@ -47,9 +59,14 @@ export default function HistoryPage() {
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900">
-                  📅 Lịch Trình Hẹn Hò Mới Nhất
+                  📅 {isDefaultSchedule ? 'Lịch Trình Mặc Định' : 'Lịch Trình Hẹn Hò Mới Nhất'}
                 </h2>
                 <p className="text-gray-600 mt-1">💕 {latestSchedule.date}</p>
+                {isDefaultSchedule && (
+                  <div className="mt-2 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                    ✨ Đây là lựa chọn mặc định của anh
+                  </div>
+                )}
               </div>
               <button
                 onClick={clearHistory}
