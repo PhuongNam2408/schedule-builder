@@ -56,7 +56,7 @@ export default function HistoryPage() {
             
             <div className="space-y-6">
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">
+                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
                   11:00
                 </div>
                 <div>
@@ -67,7 +67,7 @@ export default function HistoryPage() {
               </div>
 
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold">
+                <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
                   13:30
                 </div>
                 <div>
@@ -78,7 +78,7 @@ export default function HistoryPage() {
               </div>
 
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
                   15:00
                 </div>
                 <div>
@@ -89,7 +89,7 @@ export default function HistoryPage() {
               </div>
 
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">
+                <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
                   17:30
                 </div>
                 <div>
@@ -100,7 +100,7 @@ export default function HistoryPage() {
               </div>
 
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold">
+                <div className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
                   20:00
                 </div>
                 <div>
@@ -110,7 +110,7 @@ export default function HistoryPage() {
               </div>
 
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                <div className="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
                   22:00
                 </div>
                 <div>
