@@ -9,7 +9,7 @@ export interface Account {
 export const accounts: Account[] = [
   {
     username: "phuongnam",
-    password: "nam2408",
+    password: "04052025",
     displayName: "Phương Nam",
     joinDate: "28/07/2025"
   },
@@ -17,12 +17,6 @@ export const accounts: Account[] = [
     username: "thuphuong",
     password: "04052025",
     displayName: "Thu Phương",
-    joinDate: "28/07/2025"
-  },
-  {
-    username: "admin",
-    password: "admin123",
-    displayName: "Admin",
     joinDate: "28/07/2025"
   }
 ];
