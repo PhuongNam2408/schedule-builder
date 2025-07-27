@@ -48,7 +48,7 @@ export default function Summary() {
           
           <div className="space-y-6">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
+              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '11px', lineHeight: '1'}}>
                 11:00
               </div>
               <div>
@@ -62,7 +62,7 @@ export default function Summary() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
+              <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '11px', lineHeight: '1'}}>
                 13:30
               </div>
               <div>
@@ -76,7 +76,7 @@ export default function Summary() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
+              <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '11px', lineHeight: '1'}}>
                 15:00
               </div>
               <div>
@@ -90,7 +90,7 @@ export default function Summary() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
+              <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '11px', lineHeight: '1'}}>
                 17:30
               </div>
               <div>
@@ -100,7 +100,7 @@ export default function Summary() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
+              <div className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '11px', lineHeight: '1'}}>
                 20:00
               </div>
               <div>
@@ -110,7 +110,7 @@ export default function Summary() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
+              <div className="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '11px', lineHeight: '1'}}>
                 22:00
               </div>
               <div>
