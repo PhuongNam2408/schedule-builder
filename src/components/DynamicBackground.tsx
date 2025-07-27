@@ -23,7 +23,7 @@ export default function DynamicBackground() {
       {currentStep === 0 ? (
         <div className="absolute inset-0">
           <Image
-            src="/IMG_8525.png"
+            src="/IMG_9273.JPG"
             alt="Background"
             fill
             style={{
