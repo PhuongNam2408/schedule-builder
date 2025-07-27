@@ -152,7 +152,7 @@ export default function CafeSelection() {
                   value={customName}
                   onChange={(e) => setCustomName(e.target.value)}
                   placeholder="VD: Starbucks Landmark 81..."
-                  className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-amber-500 focus:border-transparent text-gray-900 placeholder-gray-500"
                   onKeyPress={(e) => e.key === 'Enter' && handleCustomSubmit()}
                   autoFocus
                 />
