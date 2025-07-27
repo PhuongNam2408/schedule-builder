@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Camera, MapPin, Star, DollarSign, Sparkles } from 'lucide-react';
+import { Camera, MapPin, ArrowLeft } from 'lucide-react';
 import { photobooths, Photobooth } from '@/data/venues';
 import { useSchedule } from '@/context/ScheduleContext';
 
@@ -18,8 +18,19 @@ export default function PhotoboothSelection() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 p-6">
       <div className="max-w-6xl mx-auto">
+        {/* Back button at top-left */}
+        <div className="mb-8">
+          <button
+            onClick={prevStep}
+            className="flex items-center text-purple-600 hover:text-purple-800 text-sm font-medium bg-white rounded-full px-4 py-2 shadow-md hover:shadow-lg transition-all duration-200"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            <span>Trở lại</span>
+          </button>
+        </div>
+
         <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
             📸 Chọn Studio Photobooth
           </h1>
           <p className="text-lg text-gray-700 font-medium max-w-2xl mx-auto">
@@ -50,14 +61,6 @@ export default function PhotoboothSelection() {
                   height={192}
                   className="w-full h-48 object-cover"
                 />
-                <div className="absolute top-4 right-4 bg-white rounded-full px-3 py-1 shadow-lg">
-                  <div className="flex items-center text-yellow-500">
-                    <Star className="h-4 w-4 fill-current" />
-                    <span className="ml-1 text-sm font-semibold text-gray-700">
-                      {photobooth.rating}
-                    </span>
-                  </div>
-                </div>
                 <div className="absolute top-4 left-4 bg-purple-500 text-white rounded-full p-2">
                   <Camera className="h-4 w-4" />
                 </div>
@@ -68,26 +71,28 @@ export default function PhotoboothSelection() {
                   {photobooth.name}
                 </h3>
                 
-                <div className="flex items-center text-gray-600 mb-2">
-                  <MapPin className="h-4 w-4 mr-2" />
+                <div className="flex items-center text-gray-700 font-medium mb-3">
+                  <MapPin className="w-4 h-4 mr-1" />
                   <span className="text-sm">{photobooth.address}</span>
                 </div>
-
-                <div className="flex items-center text-green-600 mb-3">
-                  <DollarSign className="h-4 w-4 mr-2" />
-                  <span className="text-sm font-semibold">{photobooth.priceRange}</span>
+                
+                <div className="flex items-center justify-between">
+                  <a 
+                    href={photobooth.tiktokUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center text-pink-500 hover:text-pink-600 text-sm font-medium"
+                  >
+                    <span className="mr-1">📱</span>
+                    <span>Xem TikTok</span>
+                  </a>
+                  
+                  {selectedPhotobooth?.id === photobooth.id && (
+                    <div className="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold text-center">
+                      Đã chọn 💜
+                    </div>
+                  )}
                 </div>
-
-                <div className="flex items-start text-gray-500 mb-3">
-                  <Sparkles className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm">{photobooth.features}</span>
-                </div>
-
-                {selectedPhotobooth?.id === photobooth.id && (
-                  <div className="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold text-center">
-                    Đã chọn 💜
-                  </div>
-                )}
               </div>
             </div>
           ))}
@@ -97,13 +102,6 @@ export default function PhotoboothSelection() {
           <p className="text-gray-500 italic mb-6">
             💡 Mẹo: Nhớ book trước để có slot đẹp nhất nhé! 📱
           </p>
-          
-          <button
-            onClick={prevStep}
-            className="bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition-colors font-medium"
-          >
-            ← Quay lại chọn quán cafe
-          </button>
         </div>
       </div>
     </div>

@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Utensils, MapPin, Star, DollarSign, Clock } from 'lucide-react';
+import { Utensils, MapPin, ArrowLeft } from 'lucide-react';
 import { restaurants, Restaurant } from '@/data/venues';
 import { useSchedule } from '@/context/ScheduleContext';
 
 export default function RestaurantSelection() {
-  const { selectedRestaurant, setSelectedRestaurant, nextStep } = useSchedule();
+  const { selectedRestaurant, setSelectedRestaurant, nextStep, prevStep } = useSchedule();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const handleSelect = (restaurant: Restaurant) => {
@@ -18,6 +18,17 @@ export default function RestaurantSelection() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-100 p-6">
       <div className="max-w-6xl mx-auto">
+        {/* Back button at top-left */}
+        <div className="mb-8">
+          <button
+            onClick={prevStep}
+            className="flex items-center text-red-600 hover:text-red-800 text-sm font-medium bg-white rounded-full px-4 py-2 shadow-md hover:shadow-lg transition-all duration-200"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            <span>Trở lại</span>
+          </button>
+        </div>
+
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
             🍽️ Chọn Nhà Hàng Ăn Tối Lãng Mạn
@@ -50,14 +61,6 @@ export default function RestaurantSelection() {
                   height={192}
                   className="w-full h-48 object-cover"
                 />
-                <div className="absolute top-4 right-4 bg-white rounded-full px-3 py-1 shadow-lg">
-                  <div className="flex items-center text-yellow-500">
-                    <Star className="h-4 w-4 fill-current" />
-                    <span className="ml-1 text-sm font-semibold text-gray-700">
-                      {restaurant.rating}
-                    </span>
-                  </div>
-                </div>
                 <div className="absolute top-4 left-4 bg-red-500 text-white rounded-full p-2">
                   <Utensils className="h-4 w-4" />
                 </div>
@@ -68,26 +71,28 @@ export default function RestaurantSelection() {
                   {restaurant.name}
                 </h3>
                 
-                <div className="flex items-center text-gray-600 mb-2">
-                  <MapPin className="h-4 w-4 mr-2" />
+                <div className="flex items-center text-gray-700 font-medium mb-3">
+                  <MapPin className="w-4 h-4 mr-1" />
                   <span className="text-sm">{restaurant.address}</span>
                 </div>
-
-                <div className="flex items-center text-green-600 mb-3">
-                  <DollarSign className="h-4 w-4 mr-2" />
-                  <span className="text-sm font-semibold">{restaurant.priceRange}</span>
+                
+                <div className="flex items-center justify-between">
+                  <a 
+                    href={restaurant.tiktokUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center text-pink-500 hover:text-pink-600 text-sm font-medium"
+                  >
+                    <span className="mr-1">📱</span>
+                    <span>Xem TikTok</span>
+                  </a>
+                  
+                  {selectedRestaurant?.id === restaurant.id && (
+                    <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold text-center">
+                      Đã chọn 🍽️
+                    </div>
+                  )}
                 </div>
-
-                <div className="flex items-center text-gray-500 mb-3">
-                  <Clock className="h-4 w-4 mr-2" />
-                  <span className="text-sm">{restaurant.cuisine}</span>
-                </div>
-
-                {selectedRestaurant?.id === restaurant.id && (
-                  <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold text-center">
-                    Đã chọn 🍽️
-                  </div>
-                )}
               </div>
             </div>
           ))}
