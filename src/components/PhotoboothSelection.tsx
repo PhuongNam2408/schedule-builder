@@ -64,7 +64,7 @@ export default function PhotoboothSelection() {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             📸 Chọn Photobooth
           </h1>
-          <p className="text-lg text-gray-700 font-medium max-w-2xl mx-auto text-justify indent-8">
+          <p className="text-lg text-gray-700 font-medium max-w-2xl mx-auto text-justify indent-4">
             Anh biết là hiện tại em thực sự cảm thấy không thoải mái khi chụp photobooth với anh, thế nhưng mà anh vẫn muốn cố gắng một lần nữa. Thực sự là bọn mình đã rất hạnh phúc khi được ở bên nhau, chụp với nhau từng bức ảnh, nhìn nhau, ôm nhau, rồi hôn nhau với những tình cảm chân thật nhất. Liệu em có còn muốn lưu lại những khoảnh khắc đẹp nhất của chúng ta hong? 📷💕
           </p>
         </div>
