@@ -7,6 +7,7 @@ import CafeSelection from "@/components/CafeSelection";
 import PhotoboothSelection from "@/components/PhotoboothSelection";
 import Summary from "@/components/Summary";
 import ScrollToTop from "@/components/ScrollToTop";
+import DynamicBackground from "@/components/DynamicBackground";
 
 export default function Home() {
   const { currentStep } = useSchedule();
@@ -24,14 +25,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen relative">
-      {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('/romantic-bg.svg')`,
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-50/50 to-rose-100/50" />
+      {/* Background Image */}
+      <DynamicBackground />
       
       {/* Content */}
       <div className="relative z-10">
@@ -45,7 +40,7 @@ export default function Home() {
           </div>
         )}
         
-        <div className="pt-4">
+        <div className={`pt-4 ${currentStep === 0 ? '' : 'bg-white/5'}`}>
           {currentStep === 0 && <HistoryPage />}
           {currentStep === 1 && <LunchSelection />}
           {currentStep === 2 && <CafeSelection />}

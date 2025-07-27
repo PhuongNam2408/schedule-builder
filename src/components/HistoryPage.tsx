@@ -15,18 +15,18 @@ export default function HistoryPage() {
   const latestSchedule = scheduleHistory.length > 0 ? scheduleHistory[0] : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 p-6">
+    <div className="min-h-screen p-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">
             💕 Dating Planner
           </h1>
-          <p className="text-lg text-gray-700 font-medium">
+          <p className="text-lg text-white font-medium drop-shadow-md">
             Tạo lịch trình hẹn hò lãng mạn cho chúng ta! ✨
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+        <div className="bg-white/95 rounded-2xl shadow-lg p-8 mb-8 backdrop-blur-sm">
           <div className="text-center">
             <button
               onClick={startNewSchedule}

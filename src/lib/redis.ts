@@ -7,16 +7,25 @@ export function getRedis(): Redis {
     return redisClient;
   }
 
-  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+  // Kiểm tra các URL có hợp lệ không (không phải placeholder)
+  const hasValidKV = process.env.KV_REST_API_URL && 
+                     process.env.KV_REST_API_TOKEN && 
+                     process.env.KV_REST_API_URL.startsWith('https://');
+  
+  const hasValidUpstash = process.env.UPSTASH_REDIS_REST_URL && 
+                          process.env.UPSTASH_REDIS_REST_TOKEN &&
+                          process.env.UPSTASH_REDIS_REST_URL.startsWith('https://');
+
+  if (hasValidKV) {
     // Upstash KV (từ Vercel Marketplace)
     redisClient = new Redis({
       url: process.env.KV_REST_API_URL,
       token: process.env.KV_REST_API_TOKEN,
     });
-  } else if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
+  } else if (hasValidUpstash) {
     // Upstash Redis trực tiếp
     redisClient = Redis.fromEnv();
-  } else if (process.env.REDIS_URL) {
+  } else if (process.env.REDIS_URL && process.env.REDIS_URL.startsWith('redis://')) {
     // Fallback cho development với Redis Cloud - tạo mock client
     console.warn("Using Redis Cloud in development - limited functionality");
     redisClient = {
@@ -28,15 +37,15 @@ export function getRedis(): Redis {
       get: async () => { console.log("Mock Redis get"); return null; },
     } as unknown as Redis;
   } else {
-    // For build time, return a mock that won't be executed
-    console.warn("No Redis configuration found, using build-time mock");
+    // For development without Redis - use mock
+    console.warn("No valid Redis configuration found, using local mock for development");
     redisClient = {
-      lpush: async () => 1,
-      ltrim: async () => "OK" as const,
-      lrange: async () => [],
-      del: async () => 1,
-      set: async () => "OK" as const,
-      get: async () => null,
+      lpush: async () => { console.log("Local Mock Redis lpush"); return 1; },
+      ltrim: async () => { console.log("Local Mock Redis ltrim"); return "OK" as const; },
+      lrange: async () => { console.log("Local Mock Redis lrange"); return []; },
+      del: async () => { console.log("Local Mock Redis del"); return 1; },
+      set: async () => { console.log("Local Mock Redis set"); return "OK" as const; },
+      get: async () => { console.log("Local Mock Redis get"); return null; },
     } as unknown as Redis;
   }
 
