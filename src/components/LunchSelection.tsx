@@ -110,6 +110,7 @@ export default function LunchSelection() {
                       href={lunch.tiktokUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="flex items-center text-pink-500 hover:text-pink-600 text-sm font-medium"
                     >
                       <span className="mr-1">📱</span>
