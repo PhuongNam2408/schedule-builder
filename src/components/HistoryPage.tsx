@@ -28,6 +28,11 @@ export default function HistoryPage() {
 
         <div className="bg-white/95 rounded-2xl shadow-lg p-8 mb-8 backdrop-blur-sm">
           <div className="text-center">
+            <div className="mb-6 text-gray-700 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-base">
+                Anh chào Thu Phương, người yêu của anh. Đây có thể nói là lần đầu tiên anh chuẩn bị gần như hoàn toàn cho buổi đi date của mình. Để giúp bé có trải nghiệm tốt hơn, anh tạo ra trang web này giúp em đưa ra những lựa chọn mà embe có thể yêu thích. Còn nếu không, em cứ bấm vào <strong>&ldquo;Xóa toàn bộ lịch sử&rdquo;</strong>, và sử dụng lựa chọn default của anh đưa ra nhá. Nếu em muốn tham khảo thêm các lựa chọn khác, em hãy bấm <strong>&ldquo;Tạo lịch trình mới&rdquo;</strong> nha. Anh yêu Thu Phương ❤️
+              </p>
+            </div>
             <button
               onClick={startNewSchedule}
               className="px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white rounded-xl font-bold text-lg transition-colors shadow-lg"
