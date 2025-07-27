@@ -34,9 +34,11 @@ export default function CafeSelection() {
             ☕ Chọn Quán Cafe Lãng Mạn
           </h1>
           <p className="text-lg text-gray-700 font-medium max-w-2xl mx-auto">
-            Nơi em có thể makeup xinh xắn và quay những video TikTok cực cute! �✨
+            Nơi em có thể makeup xinh xắn và quay những video TikTok cực cute! 💄✨
           </p>
-        </div>        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {cafes.map((cafe) => (
             <div
               key={cafe.id}
@@ -70,36 +72,27 @@ export default function CafeSelection() {
                 </h3>
                 
                 <div className="flex items-center text-gray-700 font-medium mb-3">
-                  <MapPin className="w-4 h-4 mr-1" />
+                  <MapPin className="h-4 w-4 mr-2 text-amber-500" />
                   <span className="text-sm">{cafe.address}</span>
                 </div>
-                
-                <div className="flex items-center justify-between">
-                  <a 
+
+                <div className="flex justify-between items-center">
+                  <a
                     href={cafe.tiktokUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center text-pink-500 hover:text-pink-600 text-sm font-medium"
+                    className="text-pink-600 hover:text-pink-800 font-medium text-sm"
+                    onClick={(e) => e.stopPropagation()}
                   >
-                    <span className="mr-1">📱</span>
-                    <span>Xem TikTok</span>
+                    📱 Xem TikTok
                   </a>
-                  
-                  {selectedCafe?.id === cafe.id && (
-                    <div className="bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-semibold text-center">
-                      Đã chọn ☕
-                    </div>
-                  )}
+                  <span className="text-amber-600 font-bold">
+                    {selectedCafe?.id === cafe.id ? '✅ Đã chọn' : '☕ Chọn'}
+                  </span>
                 </div>
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="text-center mt-8">
-          <p className="text-gray-500 italic mb-6">
-            💡 Mẹo: Chọn quán có không gian đẹp để em có thể quay TikTok thỏa thích! 📸
-          </p>
         </div>
       </div>
     </div>
