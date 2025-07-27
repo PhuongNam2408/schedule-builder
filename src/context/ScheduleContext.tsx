@@ -154,7 +154,14 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
 
       const newSchedule: ScheduleHistory = {
         id: Date.now().toString(),
-        date: new Date().toLocaleDateString('vi-VN'),
+        date: new Date().toLocaleString('vi-VN', {
+          year: 'numeric',
+          month: '2-digit', 
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        }),
         lunch: selectedLunch,
         cafe: selectedCafe,
         photobooth: selectedPhotobooth,
@@ -218,7 +225,14 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
 
     const defaultSchedule: ScheduleHistory = {
       id: `default-${Date.now()}`,
-      date: new Date().toLocaleDateString('vi-VN'),
+      date: new Date().toLocaleString('vi-VN', {
+        year: 'numeric',
+        month: '2-digit', 
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }),
       lunch: defaultSelections.lunch!,
       cafe: defaultSelections.cafe!,
       photobooth: defaultSelections.photobooth!,
