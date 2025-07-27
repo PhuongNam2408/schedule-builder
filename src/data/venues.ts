@@ -33,17 +33,17 @@ export interface Photobooth {
 export const cafes: Cafe[] = [
   {
     id: "1",
-    name: "Ơn giời Tahu ngon đây rồi",
-    address: "378 P. Khâm Thiên, Thổ Quan, Đống Đa, Hà Nội",
-    image: "https://lh3.googleusercontent.com/p/AF1QipMoQB6fhQEBtlNzEZWr2dNbRnoHx3S263R-jVp7=s1360-w1360-h1020",
-    tiktokUrl: "https://www.tiktok.com/@cundaily216/video/7485965642328444178?is_from_webapp=1&sender_device=pc&web_id=7498191363931063815"
+    name: "MONO Coffee Lab - Pasteur",
+    address: "3 P. Nguyễn Huy Tự, Bạch Đằng, Hai Bà Trưng, Hà Nội",
+    image: "https://imagevietnam.vnanet.vn//MediaUpload/Org/2024/08/20/120-15-49-50.jpg",
+    tiktokUrl: "https://www.tiktok.com/@lthivanh/video/7343239074590838024?q=mono%20coffee%20lab&t=1753640229495"
   },
   {
     id: "2", 
-    name: "Cake Cà Kê",
-    address: "17 P. Quán Thánh, Quán Thánh, Ba Đình, Hà Nội",
-    image: "https://mms.img.susercontent.com/vn-11134513-7r98o-lw2k1ko0zb2xe4@resize_ss1242x600!@crop_w1242_h600_cT",
-    tiktokUrl: "https://www.tiktok.com/@lontodagi/video/7518386770145250567?is_from_webapp=1&sender_device=pc&web_id=7498191363931063815"
+    name: "Cheese Coffee",
+    address: "50A P. Lê Đại Hành, Lê Đại Hành, Hai Bà Trưng, Hà Nội",
+    image: "https://attachment.momocdn.net/common/u/2e02fb5fe4f64fb55bc713540643c6f8eae702d101cea8c59afc49cfc505fc37/2d143af0-5691-47a2-8088-a877bf3ca8b1zlx3acn7.jpeg",
+    tiktokUrl: "https://www.tiktok.com/@xu.nxaa/video/7252711550941678853?q=cheese%20coffee%20l%C3%AA%20%C4%91%E1%BA%A1i%20h%C3%A0nh&t=1753641117503"
   },
   {
     id: "3",
@@ -51,6 +51,20 @@ export const cafes: Cafe[] = [
     address: "289 P. Kim Mã, Khu tập thể Giảng Võ, Ba Đình, Hà Nội", 
     image: "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nr00vgiPBqT7Xn1hiUhD_1-Oiw1K0EJyGdYv4BN6w0sK6MRCYMZAyey8rTmQ4McAPVaf6GTfU0DbL8OtlZ4MI82usuTy4FSnEEmCtJD9uREx-CJLMBaiYpv9RgZZm4TAvlUCGo=s1360-w1360-h1020",
     tiktokUrl: "https://www.tiktok.com/@hanoilifeyay/video/7528625394841308423?is_from_webapp=1&sender_device=pc&web_id=7498191363931063815"
+  },
+  {
+    id: "4",
+    name: "All Day Coffee",
+    address: "37 P. Quang Trung, Trần Hưng Đạo, Hoàn Kiếm, Hà Nộii", 
+    image: "https://lh3.googleusercontent.com/p/AF1QipNldj2frXRYpRDS-_YURCUMX7jjZbdmKi6K6W8W=w408-h258-k-no",
+    tiktokUrl: "https://www.tiktok.com/@elss.2002/video/7299065905785376007?q=allday&t=1753641231873"
+  },
+  {
+    id: "5",
+    name: "Indoor Coffee & Bistro",
+    address: "ngách 53 Ng. 252 P. Tây Sơn, Trung Liệt, Đống Đa, Hà Nội", 
+    image: "https://ipos.vn/wp-content/uploads/2023/03/Group-10-2-2.png",
+    tiktokUrl: "https://www.tiktok.com/@chillinhanoi/video/7202962692892904730?q=qu%C3%A1n%20cafe%20kh%C3%B4ng%20gian%20r%E1%BB%99ng%20h%C3%A0%20n%E1%BB%99i&t=1753641472936"
   },
 ];
 
