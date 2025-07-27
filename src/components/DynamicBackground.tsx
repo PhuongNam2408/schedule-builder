@@ -21,13 +21,13 @@ export default function DynamicBackground() {
   return (
     <>
       {currentStep === 0 ? (
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-100 to-rose-200">
           <Image
             src="/IMG_9273.JPG"
             alt="Background"
             fill
             style={{
-              objectFit: 'cover',
+              objectFit: 'contain',
               objectPosition: 'center',
             }}
             priority
