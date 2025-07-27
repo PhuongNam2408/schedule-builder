@@ -6,6 +6,7 @@ import LunchSelection from "@/components/LunchSelection";
 import CafeSelection from "@/components/CafeSelection";
 import PhotoboothSelection from "@/components/PhotoboothSelection";
 import Summary from "@/components/Summary";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export default function Home() {
   const { currentStep } = useSchedule();
@@ -52,6 +53,9 @@ export default function Home() {
           {currentStep === 4 && <Summary />}
         </div>
       </div>
+      
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </main>
   );
 }
