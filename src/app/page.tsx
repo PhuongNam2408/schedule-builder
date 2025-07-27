@@ -31,7 +31,7 @@ export default function Home() {
           backgroundImage: `url('/romantic-bg.svg')`,
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-50/80 to-rose-100/80" />
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-50/50 to-rose-100/50" />
       
       {/* Content */}
       <div className="relative z-10">

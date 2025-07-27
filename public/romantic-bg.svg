@@ -1,24 +1,56 @@
-<!-- This is a placeholder for romantic dating background image -->
-<!-- You can replace this with an actual romantic image later -->
 <svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
 <defs>
-<linearGradient id="romantic-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-<stop offset="0%" style="stop-color:#FDF2F8;stop-opacity:1" />
-<stop offset="25%" style="stop-color:#FCE7F3;stop-opacity:1" />
-<stop offset="50%" style="stop-color:#FBCFE8;stop-opacity:1" />
-<stop offset="75%" style="stop-color:#F9A8D4;stop-opacity:1" />
-<stop offset="100%" style="stop-color:#F472B6;stop-opacity:1" />
+<radialGradient id="bg-gradient" cx="50%" cy="50%" r="70%">
+<stop offset="0%" style="stop-color:#FFF7ED;stop-opacity:1" />
+<stop offset="30%" style="stop-color:#FED7D7;stop-opacity:1" />
+<stop offset="60%" style="stop-color:#FBB6CE;stop-opacity:1" />
+<stop offset="100%" style="stop-color:#F687B3;stop-opacity:1" />
+</radialGradient>
+<linearGradient id="overlay-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#FDF2F8;stop-opacity:0.8" />
+<stop offset="100%" style="stop-color:#FCE7F3;stop-opacity:0.6" />
 </linearGradient>
 </defs>
-<rect width="1920" height="1080" fill="url(#romantic-bg)"/>
-<!-- Hearts pattern -->
-<g opacity="0.1">
-<path d="M100 100c0-30 25-55 55-55s55 25 55 55c0 55-55 100-55 100s-55-45-55-100z" fill="#EC4899"/>
-<path d="M300 200c0-20 15-35 35-35s35 15 35 35c0 35-35 65-35 65s-35-30-35-65z" fill="#EC4899"/>
-<path d="M500 150c0-25 20-45 45-45s45 20 45 45c0 45-45 80-45 80s-45-35-45-80z" fill="#EC4899"/>
-<!-- Add more hearts across the image -->
-<path d="M800 300c0-30 25-55 55-55s55 25 55 55c0 55-55 100-55 100s-55-45-55-100z" fill="#EC4899"/>
-<path d="M1200 100c0-20 15-35 35-35s35 15 35 35c0 35-35 65-35 65s-35-30-35-65z" fill="#EC4899"/>
-<path d="M1500 250c0-25 20-45 45-45s45 20 45 45c0 45-45 80-45 80s-45-35-45-80z" fill="#EC4899"/>
+
+<!-- Base gradient background -->
+<rect width="1920" height="1080" fill="url(#bg-gradient)"/>
+
+<!-- Floating hearts pattern -->
+<g opacity="0.3">
+<!-- Large hearts -->
+<g transform="translate(200, 150)">
+<path d="M0 20c0-11 9-20 20-20s20 9 20 20c0 20-20 35-20 35s-20-15-20-35z" fill="#F472B6"/>
 </g>
+<g transform="translate(400, 80)">
+<path d="M0 15c0-8 7-15 15-15s15 7 15 15c0 15-15 25-15 25s-15-10-15-25z" fill="#EC4899"/>
+</g>
+<g transform="translate(150, 300)">
+<path d="M0 25c0-14 11-25 25-25s25 11 25 25c0 25-25 40-25 40s-25-15-25-40z" fill="#F472B6"/>
+</g>
+
+<!-- Right side hearts -->
+<g transform="translate(1400, 200)">
+<path d="M0 20c0-11 9-20 20-20s20 9 20 20c0 20-20 35-20 35s-20-15-20-35z" fill="#EC4899"/>
+</g>
+<g transform="translate(1600, 120)">
+<path d="M0 18c0-10 8-18 18-18s18 8 18 18c0 18-18 30-18 30s-18-12-18-30z" fill="#F472B6"/>
+</g>
+<g transform="translate(1300, 400)">
+<path d="M0 22c0-12 10-22 22-22s22 10 22 22c0 22-22 37-22 37s-22-15-22-37z" fill="#EC4899"/>
+</g>
+
+<!-- Bottom hearts -->
+<g transform="translate(800, 800)">
+<path d="M0 16c0-9 7-16 16-16s16 7 16 16c0 16-16 28-16 28s-16-12-16-28z" fill="#F472B6"/>
+</g>
+<g transform="translate(600, 900)">
+<path d="M0 24c0-13 11-24 24-24s24 11 24 24c0 24-24 40-24 40s-24-16-24-40z" fill="#EC4899"/>
+</g>
+<g transform="translate(1000, 850)">
+<path d="M0 14c0-8 6-14 14-14s14 6 14 14c0 14-14 24-14 24s-14-10-14-24z" fill="#F472B6"/>
+</g>
+</g>
+
+<!-- Subtle overlay -->
+<rect width="1920" height="1080" fill="url(#overlay-gradient)"/>
 </svg>
