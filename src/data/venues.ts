@@ -33,39 +33,25 @@ export interface Photobooth {
 export const cafes: Cafe[] = [
   {
     id: "1",
-    name: "The Coffee House",
-    address: "123 Nguyễn Huệ, Q1, TP.HCM",
-    image: "https://picsum.photos/300/200?random=1",
-    tiktokUrl: "https://www.tiktok.com/@thecoffeehouse"
+    name: "Ơn giời Tahu ngon đây rồi",
+    address: "378 P. Khâm Thiên, Thổ Quan, Đống Đa, Hà Nội",
+    image: "https://lh3.googleusercontent.com/p/AF1QipMoQB6fhQEBtlNzEZWr2dNbRnoHx3S263R-jVp7=s1360-w1360-h1020",
+    tiktokUrl: "https://www.tiktok.com/@cundaily216/video/7485965642328444178?is_from_webapp=1&sender_device=pc&web_id=7498191363931063815"
   },
   {
     id: "2", 
-    name: "Highlands Coffee",
-    address: "456 Lê Lợi, Q1, TP.HCM",
-    image: "https://picsum.photos/300/200?random=2",
-    tiktokUrl: "https://www.tiktok.com/@highlandscoffee"
+    name: "Cake Cà Kê",
+    address: "17 P. Quán Thánh, Quán Thánh, Ba Đình, Hà Nội",
+    image: "https://mms.img.susercontent.com/vn-11134513-7r98o-lw2k1ko0zb2xe4@resize_ss1242x600!@crop_w1242_h600_cT",
+    tiktokUrl: "https://www.tiktok.com/@lontodagi/video/7518386770145250567?is_from_webapp=1&sender_device=pc&web_id=7498191363931063815"
   },
   {
     id: "3",
-    name: "Starbucks",
-    address: "789 Đồng Khởi, Q1, TP.HCM", 
-    image: "https://picsum.photos/300/200?random=3",
-    tiktokUrl: "https://www.tiktok.com/@starbucks"
+    name: "Le Petit Café",
+    address: "289 P. Kim Mã, Khu tập thể Giảng Võ, Ba Đình, Hà Nội", 
+    image: "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nr00vgiPBqT7Xn1hiUhD_1-Oiw1K0EJyGdYv4BN6w0sK6MRCYMZAyey8rTmQ4McAPVaf6GTfU0DbL8OtlZ4MI82usuTy4FSnEEmCtJD9uREx-CJLMBaiYpv9RgZZm4TAvlUCGo=s1360-w1360-h1020",
+    tiktokUrl: "https://www.tiktok.com/@hanoilifeyay/video/7528625394841308423?is_from_webapp=1&sender_device=pc&web_id=7498191363931063815"
   },
-  {
-    id: "4",
-    name: "Trung Nguyên Coffee",
-    address: "321 Pasteur, Q3, TP.HCM",
-    image: "https://picsum.photos/300/200?random=4",
-    tiktokUrl: "https://www.tiktok.com/@trungnguyencoffee"
-  },
-  {
-    id: "5",
-    name: "Phúc Long Coffee & Tea",
-    address: "654 Hai Bà Trưng, Q3, TP.HCM",
-    image: "https://picsum.photos/300/200?random=5",
-    tiktokUrl: "https://www.tiktok.com/@phuclongcoffee"
-  }
 ];
 
 // Quán ăn trưa lãng mạn cho hẹn hò
