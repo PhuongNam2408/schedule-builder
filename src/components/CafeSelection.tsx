@@ -108,15 +108,17 @@ export default function CafeSelection() {
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <a
-                    href={cafe.tiktokUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-pink-600 hover:text-pink-800 font-medium text-sm"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    📱 Xem TikTok
-                  </a>
+                  {cafe.tiktokUrl && cafe.tiktokUrl !== "" && (
+                    <a
+                      href={cafe.tiktokUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-pink-600 hover:text-pink-800 font-medium text-sm"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      📱 Xem TikTok
+                    </a>
+                  )}
                   <span className="text-amber-600 font-bold">
                     {selectedCafe?.id === cafe.id ? '✅ Đã chọn' : '☕ Chọn'}
                   </span>

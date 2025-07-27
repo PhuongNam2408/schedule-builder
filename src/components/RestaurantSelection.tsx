@@ -77,15 +77,17 @@ export default function RestaurantSelection() {
                 </div>
                 
                 <div className="flex items-center justify-between">
-                  <a 
-                    href={restaurant.tiktokUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center text-pink-500 hover:text-pink-600 text-sm font-medium"
-                  >
-                    <span className="mr-1">📱</span>
-                    <span>Xem TikTok</span>
-                  </a>
+                  {restaurant.tiktokUrl && restaurant.tiktokUrl !== "" && (
+                    <a 
+                      href={restaurant.tiktokUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center text-pink-500 hover:text-pink-600 text-sm font-medium"
+                    >
+                      <span className="mr-1">📱</span>
+                      <span>Xem TikTok</span>
+                    </a>
+                  )}
                   
                   {selectedRestaurant?.id === restaurant.id && (
                     <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold text-center">

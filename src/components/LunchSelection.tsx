@@ -105,15 +105,17 @@ export default function LunchSelection() {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <a 
-                    href={lunch.tiktokUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center text-pink-500 hover:text-pink-600 text-sm font-medium"
-                  >
-                    <span className="mr-1">📱</span>
-                    <span>Xem TikTok</span>
-                  </a>
+                  {lunch.tiktokUrl && lunch.tiktokUrl !== "" && (
+                    <a 
+                      href={lunch.tiktokUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center text-pink-500 hover:text-pink-600 text-sm font-medium"
+                    >
+                      <span className="mr-1">📱</span>
+                      <span>Xem TikTok</span>
+                    </a>
+                  )}
                   
                   {selectedLunch?.id === lunch.id && (
                     <div className="bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-semibold">

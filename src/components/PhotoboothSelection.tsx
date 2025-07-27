@@ -108,15 +108,17 @@ export default function PhotoboothSelection() {
                 </div>
                 
                 <div className="flex items-center justify-between">
-                  <a 
-                    href={photobooth.tiktokUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center text-pink-500 hover:text-pink-600 text-sm font-medium"
-                  >
-                    <span className="mr-1">📱</span>
-                    <span>Xem TikTok</span>
-                  </a>
+                  {photobooth.tiktokUrl && photobooth.tiktokUrl !== "" && (
+                    <a 
+                      href={photobooth.tiktokUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center text-pink-500 hover:text-pink-600 text-sm font-medium"
+                    >
+                      <span className="mr-1">📱</span>
+                      <span>Xem TikTok</span>
+                    </a>
+                  )}
                   
                   {selectedPhotobooth?.id === photobooth.id && (
                     <div className="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold text-center">
