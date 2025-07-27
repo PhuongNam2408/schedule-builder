@@ -180,12 +180,6 @@ export default function LunchSelection() {
             )}
           </div>
         </div>
-
-        <div className="text-center mt-8">
-          <p className="text-gray-500 italic">
-            💡 Mẹo: Chọn quán gần Edison để tiết kiệm thời gian di chuyển nhé!
-          </p>
-        </div>
       </div>
     </div>
   );

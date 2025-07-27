@@ -113,7 +113,7 @@ export const photobooths: Photobooth[] = [
     id: "3",
     name: "Photo Palette - Hoàn Kiếm",
     address: "8 P. Nhà Chung, Hàng Trống, Hoàn Kiếm, Hà Nội",
-    image: "https://picsum.photos/300/200?random=33",
+    image: "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrdRyoBNESuTbdekuLwmyykJ3JmnkabNBZ_Nr8keCat-jrojShLY1nsZAW-8JcgEgMEkrhNqwrQo9BseJzFDScSpIwNC8s3Vm9JHktSooykssuUBgZRDFJWguZ33gRB-9oCB31F=s1360-w1360-h1020",
     tiktokUrl: "https://www.tiktok.com/@photopalette_vn/video/7242180748130782469?q=photo%20palate%20ho%C3%A0n%20ki%E1%BA%BFm&t=1753624014968"
   },
   {
