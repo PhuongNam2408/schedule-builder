@@ -24,6 +24,9 @@ export default function HistoryPage() {
           <p className="text-lg text-gray-700 font-medium">
             Tạo lịch trình hẹn hò lãng mạn cho chúng ta! ✨
           </p>
+          <p className="text-sm text-blue-600 font-medium mt-2">
+            🌐 Lịch sử chung cho tất cả người dùng - Cập nhật real-time
+          </p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
@@ -42,15 +45,18 @@ export default function HistoryPage() {
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900">
-                  📅 Lịch Trình Hẹn Hò Gần Nhất
+                  📅 Lịch Trình Hẹn Hò Mới Nhất
                 </h2>
                 <p className="text-gray-600 mt-1">💕 {latestSchedule.date}</p>
+                <p className="text-xs text-blue-500 font-medium">
+                  🌐 Được chia sẻ bởi người dùng khác
+                </p>
               </div>
               <button
                 onClick={clearHistory}
                 className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium transition-colors"
               >
-                🗑️ Xóa lịch sử
+                🗑️ Xóa toàn bộ lịch sử
               </button>
             </div>
             

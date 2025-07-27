@@ -17,3 +17,18 @@ export async function DELETE() {
     );
   }
 }
+
+export async function POST() {
+  try {
+    // Xóa tất cả schedules từ Redis database chung
+    await redis.del("schedules");
+    
+    return NextResponse.json({ success: true, message: "All schedules cleared" }, { status: 200 });
+  } catch (error) {
+    console.error("Error clearing schedules:", error);
+    return NextResponse.json(
+      { error: "Failed to clear schedules" },
+      { status: 500 }
+    );
+  }
+}

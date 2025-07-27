@@ -65,46 +65,64 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
   
   const [currentStep, setCurrentStep] = useState(0); // Start at 0 for history page
 
-  // Load history from API on mount
+  // Load history from API on mount và setup polling để sync với database chung
   useEffect(() => {
-    const loadHistory = async () => {
-      try {
-        const response = await fetch('/api/schedule');
-        if (response.ok) {
-          const data = await response.json();
-          setScheduleHistory(data.schedules || []);
-        }
-      } catch (error) {
-        console.error('Error loading schedule history:', error);
-        // Fallback to localStorage if API fails
-        const savedHistory = localStorage.getItem('dating-schedule-history');
-        if (savedHistory) {
-          try {
-            setScheduleHistory(JSON.parse(savedHistory));
-          } catch (error) {
-            console.error('Error loading from localStorage:', error);
-          }
-        }
-      }
-    };
-    
+    // Load initial data
     loadHistory();
+    
+    // Setup polling để tự động refresh shared history mỗi 10 giây
+    const interval = setInterval(() => {
+      loadHistory();
+    }, 10000); // 10 seconds
+    
+    // Cleanup interval khi component unmount
+    return () => clearInterval(interval);
   }, []);
 
-  // Remove localStorage sync as we're using API now
-  const saveToAPI = async (newHistory: ScheduleHistory[]) => {
+  // Save to API - chỉ thêm schedule mới, không ghi đè toàn bộ
+  const saveNewScheduleToAPI = async (newSchedule: ScheduleHistory) => {
     try {
-      await fetch('/api/schedule', {
+      const response = await fetch('/api/schedule', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ schedules: newHistory }),
+        body: JSON.stringify(newSchedule),
       });
+      
+      if (response.ok) {
+        // Reload lại toàn bộ history từ server để đồng bộ với tất cả users
+        await loadHistory();
+      }
     } catch (error) {
       console.error('Error saving to API:', error);
-      // Fallback to localStorage
-      localStorage.setItem('dating-schedule-history', JSON.stringify(newHistory));
+      // Fallback to localStorage chỉ khi API thất bại hoàn toàn
+      const currentHistory = [...scheduleHistory];
+      const updatedHistory = [newSchedule, ...currentHistory];
+      localStorage.setItem('dating-schedule-history', JSON.stringify(updatedHistory));
+      setScheduleHistory(updatedHistory);
+    }
+  };
+
+  // Load history function để có thể gọi lại
+  const loadHistory = async () => {
+    try {
+      const response = await fetch('/api/schedule');
+      if (response.ok) {
+        const data = await response.json();
+        setScheduleHistory(data.schedules || []);
+      }
+    } catch (error) {
+      console.error('Error loading schedule history:', error);
+      // Fallback to localStorage if API fails
+      const savedHistory = localStorage.getItem('dating-schedule-history');
+      if (savedHistory) {
+        try {
+          setScheduleHistory(JSON.parse(savedHistory));
+        } catch (error) {
+          console.error('Error loading from localStorage:', error);
+        }
+      }
     }
   };
 
@@ -142,13 +160,14 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
         restaurant: pezziRestaurant,
       };
       
-      console.log('Adding new schedule:', newSchedule);
+      console.log('Adding new schedule to shared database:', newSchedule);
+      
+      // Thêm vào local state trước để UI responsive
       const updatedHistory = [newSchedule, ...scheduleHistory];
       setScheduleHistory(updatedHistory);
-      console.log('Updated history:', updatedHistory);
       
-      // Save to API
-      await saveToAPI(updatedHistory);
+      // Lưu vào shared database - tất cả users sẽ thấy
+      await saveNewScheduleToAPI(newSchedule);
     } else {
       console.log('Missing selections or invalid data:', { 
         selectedLunch: selectedLunch?.name || 'missing', 
@@ -159,8 +178,21 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
   };
 
   const clearHistory = async () => {
-    setScheduleHistory([]);
-    await saveToAPI([]);
+    try {
+      // Clear từ database shared cho tất cả users
+      const response = await fetch('/api/schedule/clear', {
+        method: 'POST',
+      });
+      
+      if (response.ok) {
+        setScheduleHistory([]);
+      }
+    } catch (error) {
+      console.error('Error clearing history:', error);
+      // Fallback to localStorage clear
+      localStorage.removeItem('dating-schedule-history');
+      setScheduleHistory([]);
+    }
   };
 
   const resetSelections = () => {
