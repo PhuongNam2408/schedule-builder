@@ -127,14 +127,14 @@ export const photobooths: Photobooth[] = [
     id: "5",
     name: "Glame Photobooth",
     address: "10 Ng. 18 P. Võ Văn Dũng, Chợ Dừa, Đống Đa, Hà Nội",
-    image: "https://www.instagram.com/p/DKri1ctSwFE/?img_index=5",
+    image: "/glame_photobooth_image.png",
     tiktokUrl: ""
   },
   {
     id: "6",
     name: "Wednesday Studio",
     address: "Tầng 2, 168 Thái Hà, Đống Đa, Hà Nội",
-    image: "https://www.instagram.com/p/DItyqIYT78o/?img_index=1",
+    image: "/wednesday_studio_image.png",
     tiktokUrl: "https://www.tiktok.com/@tungchiday/video/7483080435292065031?is_from_webapp=1&sender_device=pc&web_id=7498191363931063815"
   },
 ];
