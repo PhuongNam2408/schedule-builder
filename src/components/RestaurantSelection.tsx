@@ -22,10 +22,10 @@ export default function RestaurantSelection() {
         <div className="mb-8">
           <button
             onClick={prevStep}
-            className="flex items-center text-red-600 hover:text-red-800 text-sm font-medium bg-white rounded-full px-4 py-2 shadow-md hover:shadow-lg transition-all duration-200"
+            className="flex items-center text-pink-600 hover:text-pink-800 text-sm font-medium bg-white rounded-full px-4 py-2 shadow-md hover:shadow-lg transition-all duration-200"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            <span>Trở lại</span>
+            <span>Quay lại chọn Photobooth</span>
           </button>
         </div>
 

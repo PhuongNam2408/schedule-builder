@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { MapPin } from 'lucide-react';
+import { MapPin, ArrowLeft } from 'lucide-react';
 import { lunchPlaces, LunchPlace } from '@/data/venues';
 import { useSchedule } from '@/context/ScheduleContext';
 
@@ -18,13 +18,13 @@ export default function LunchSelection() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 p-6">
       <div className="max-w-6xl mx-auto">
-        {/* Back button */}
-        <div className="mb-6">
+        {/* Back button at top-left */}
+        <div className="mb-8">
           <button
             onClick={() => setCurrentStep(0)}
-            className="flex items-center space-x-2 bg-gray-500 text-white px-4 py-2 rounded-full hover:bg-gray-600 transition-colors font-medium"
+            className="flex items-center text-pink-600 hover:text-pink-800 text-sm font-medium bg-white rounded-full px-4 py-2 shadow-md hover:shadow-lg transition-all duration-200"
           >
-            <span>←</span>
+            <ArrowLeft className="w-4 h-4 mr-2" />
             <span>Về trang chủ</span>
           </button>
         </div>

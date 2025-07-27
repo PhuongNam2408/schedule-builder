@@ -21,7 +21,7 @@ export default function CafeSelection() {
       <div className="max-w-6xl mx-auto mb-4">
         <button
           onClick={prevStep}
-          className="bg-gray-500 text-white px-4 py-2 rounded-full hover:bg-gray-600 transition-colors font-medium flex items-center"
+          className="flex items-center text-pink-600 hover:text-pink-800 text-sm font-medium bg-white rounded-full px-4 py-2 shadow-md hover:shadow-lg transition-all duration-200"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           <span>Quay lại chọn quán trưa</span>
@@ -100,13 +100,6 @@ export default function CafeSelection() {
           <p className="text-gray-500 italic mb-6">
             💡 Mẹo: Chọn quán có không gian đẹp để em có thể quay TikTok thỏa thích! 📸
           </p>
-          
-          <button
-            onClick={prevStep}
-            className="bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition-colors font-medium"
-          >
-            ← Quay lại chọn quán trưa
-          </button>
         </div>
       </div>
     </div>

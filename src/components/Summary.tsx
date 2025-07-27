@@ -1,6 +1,7 @@
 'use client';
 
 import { useSchedule } from '@/context/ScheduleContext';
+import { ArrowLeft } from 'lucide-react';
 
 export default function Summary() {
   const { 
@@ -20,6 +21,17 @@ export default function Summary() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 p-6">
       <div className="max-w-6xl mx-auto">
+        {/* Back button at top-left */}
+        <div className="mb-8">
+          <button
+            onClick={() => setCurrentStep(3)}
+            className="flex items-center text-pink-600 hover:text-pink-800 text-sm font-medium bg-white rounded-full px-4 py-2 shadow-md hover:shadow-lg transition-all duration-200"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            <span>Quay lại chọn Photobooth</span>
+          </button>
+        </div>
+
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             💕 Lịch Trình Hẹn Hò Của Chúng Ta
@@ -108,14 +120,7 @@ export default function Summary() {
             </div>
           </div>
 
-          <div className="mt-8 flex justify-between">
-            <button
-              onClick={() => setCurrentStep(3)}
-              className="px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors"
-            >
-              ← Quay lại
-            </button>
-            
+          <div className="mt-8 flex justify-end">
             <div className="flex gap-3">
               <button
                 onClick={handleSaveAndNew}
