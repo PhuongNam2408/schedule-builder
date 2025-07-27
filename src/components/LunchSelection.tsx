@@ -65,7 +65,7 @@ export default function LunchSelection() {
             💕 Chọn Quán Ăn Trưa
           </h1>
           <p className="text-lg text-gray-700 font-medium max-w-2xl mx-auto">
-            Hãy chọn nơi để chúng ta cùng thưởng thức bữa trưa trong ngày hôm nay :"3 ✨
+            Hãy chọn nơi để chúng ta cùng thưởng thức bữa trưa trong ngày hôm nay :&quot;3 ✨
           </p>
         </div>
 
