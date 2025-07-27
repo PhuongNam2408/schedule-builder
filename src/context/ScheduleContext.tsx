@@ -146,10 +146,10 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
       // Create a mock restaurant for Pezzi since it's hardcoded
       const pezziRestaurant: Restaurant = {
         id: 'pezzi',
-        name: 'Pezzi',
-        address: 'Edison',
-        image: '/images/pezzi.jpg',
-        tiktokUrl: 'https://www.tiktok.com/@pezzirestaurant'
+        name: 'Tiệm nướng N&B - Pezzi coffee & Grill',
+        address: '10 Ng. 9 P. Liễu Giai, Liễu Giai, Ba Đình, Hà Nội',
+        image: 'https://lh3.googleusercontent.com/p/AF1QipPG0-qk2AWBiwcgISpxw7zTbO3YsnZzsMrhZE2g=s1360-w1360-h1020g',
+        tiktokUrl: 'https://www.tiktok.com/@totnghiepxongcuoi/video/7530654437170334994?is_from_webapp=1&sender_device=pc&web_id=7498191363931063815'
       };
 
       const newSchedule: ScheduleHistory = {
@@ -217,10 +217,10 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
     // Tạo lịch trình default
     const pezziRestaurant: Restaurant = {
       id: 'pezzi-default',
-      name: 'Pezzi - Western & Wine',
-      address: 'Edison',
-      image: '/images/pezzi.jpg',
-      tiktokUrl: 'https://www.tiktok.com/@pezzirestaurant'
+      name: 'Tiệm nướng N&B - Pezzi coffee & Grill',
+      address: '10 Ng. 9 P. Liễu Giai, Liễu Giai, Ba Đình, Hà Nội',
+      image: 'https://lh3.googleusercontent.com/p/AF1QipPG0-qk2AWBiwcgISpxw7zTbO3YsnZzsMrhZE2g=s1360-w1360-h1020g',
+      tiktokUrl: 'https://www.tiktok.com/@totnghiepxongcuoi/video/7530654437170334994?is_from_webapp=1&sender_device=pc&web_id=7498191363931063815'
     };
 
     const defaultSchedule: ScheduleHistory = {
