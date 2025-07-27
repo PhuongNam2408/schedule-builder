@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSchedule } from '@/context/ScheduleContext';
 
 export default function HistoryPage() {
   const { scheduleHistory, clearHistory, setCurrentStep, loadDefaultSchedule } = useSchedule();
+  const [hasInitialized, setHasInitialized] = useState(false);
 
   console.log('HistoryPage - scheduleHistory:', scheduleHistory, 'length:', scheduleHistory.length);
 
@@ -12,13 +13,19 @@ export default function HistoryPage() {
     setCurrentStep(1);
   };
 
-  // Auto-load default schedule nếu chưa có lịch sử nào
+  // Chỉ auto-load default schedule một lần duy nhất khi app khởi động và thực sự không có data
   useEffect(() => {
-    if (scheduleHistory.length === 0) {
-      console.log('No schedule history found, loading default schedule...');
-      loadDefaultSchedule();
+    if (!hasInitialized) {
+      // Đợi một chút để API load xong
+      setTimeout(() => {
+        if (scheduleHistory.length === 0) {
+          console.log('First time load - no schedule history found, loading default schedule...');
+          loadDefaultSchedule();
+        }
+        setHasInitialized(true);
+      }, 1000);
     }
-  }, [scheduleHistory.length, loadDefaultSchedule]);
+  }, [hasInitialized, loadDefaultSchedule, scheduleHistory.length]);
 
   // Get the latest schedule (first item in array since we add new ones at the beginning)
   const latestSchedule = scheduleHistory.length > 0 ? scheduleHistory[0] : null;

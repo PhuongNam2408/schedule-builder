@@ -187,7 +187,8 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
       
       if (response.ok) {
         setScheduleHistory([]);
-        // Tự động load default schedule sau khi clear
+        // Chỉ load default khi user chủ động xóa
+        console.log('History cleared by user, loading default schedule...');
         setTimeout(() => {
           loadDefaultSchedule();
         }, 500);
@@ -197,7 +198,7 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
       // Fallback to localStorage clear
       localStorage.removeItem('dating-schedule-history');
       setScheduleHistory([]);
-      // Tự động load default schedule sau khi clear
+      // Chỉ load default khi user chủ động xóa
       setTimeout(() => {
         loadDefaultSchedule();
       }, 500);
