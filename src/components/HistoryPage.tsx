@@ -61,8 +61,8 @@ export default function HistoryPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-900">🍜 Ăn trưa</h3>
-                  <p className="text-gray-800 font-medium">{latestSchedule.lunch.name}</p>
-                  <p className="text-sm text-gray-600">{latestSchedule.lunch.address}</p>
+                  <p className="text-gray-800 font-medium">{latestSchedule.lunch?.name || 'Chưa có thông tin'}</p>
+                  <p className="text-sm text-gray-600">{latestSchedule.lunch?.address || 'Chưa có địa chỉ'}</p>
                 </div>
               </div>
 
@@ -72,8 +72,8 @@ export default function HistoryPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-900">☕ Cafe & Makeup</h3>
-                  <p className="text-gray-800 font-medium">{latestSchedule.cafe.name}</p>
-                  <p className="text-sm text-gray-600">{latestSchedule.cafe.address}</p>
+                  <p className="text-gray-800 font-medium">{latestSchedule.cafe?.name || 'Chưa có thông tin'}</p>
+                  <p className="text-sm text-gray-600">{latestSchedule.cafe?.address || 'Chưa có địa chỉ'}</p>
                 </div>
               </div>
 
@@ -83,8 +83,8 @@ export default function HistoryPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-900">📸 Photobooth</h3>
-                  <p className="text-gray-800 font-medium">{latestSchedule.photobooth.name}</p>
-                  <p className="text-sm text-gray-600">{latestSchedule.photobooth.address}</p>
+                  <p className="text-gray-800 font-medium">{latestSchedule.photobooth?.name || 'Chưa có thông tin'}</p>
+                  <p className="text-sm text-gray-600">{latestSchedule.photobooth?.address || 'Chưa có địa chỉ'}</p>
                 </div>
               </div>
 

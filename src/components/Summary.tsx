@@ -41,7 +41,7 @@ export default function Summary() {
               </div>
               <div>
                 <h3 className="font-bold text-lg text-gray-900">🍜 Ăn trưa</h3>
-                {selectedLunch ? (
+                {selectedLunch?.name ? (
                   <p className="text-gray-800 font-medium">{selectedLunch.name}</p>
                 ) : (
                   <p className="text-red-600 font-semibold">Chưa chọn quán ăn trưa</p>
@@ -55,7 +55,7 @@ export default function Summary() {
               </div>
               <div>
                 <h3 className="font-bold text-lg text-gray-900">☕ Cafe & Makeup</h3>
-                {selectedCafe ? (
+                {selectedCafe?.name ? (
                   <p className="text-gray-800 font-medium">{selectedCafe.name}</p>
                 ) : (
                   <p className="text-red-600 font-semibold">Chưa chọn quán cafe</p>
@@ -69,7 +69,7 @@ export default function Summary() {
               </div>
               <div>
                 <h3 className="font-bold text-lg text-gray-900">📸 Photobooth</h3>
-                {selectedPhotobooth ? (
+                {selectedPhotobooth?.name ? (
                   <p className="text-gray-800 font-medium">{selectedPhotobooth.name}</p>
                 ) : (
                   <p className="text-red-600 font-semibold">Chưa chọn photobooth</p>
@@ -119,14 +119,14 @@ export default function Summary() {
             <div className="flex gap-3">
               <button
                 onClick={handleSaveAndNew}
-                disabled={!selectedLunch || !selectedCafe || !selectedPhotobooth}
+                disabled={!selectedLunch?.name || !selectedCafe?.name || !selectedPhotobooth?.name}
                 className="px-6 py-3 bg-green-500 hover:bg-green-600 disabled:bg-gray-400 text-white rounded-lg font-medium transition-colors"
               >
                 ✅ Lưu & Tạo mới
               </button>
               
               <button
-                disabled={!selectedLunch || !selectedCafe || !selectedPhotobooth}
+                disabled={!selectedLunch?.name || !selectedCafe?.name || !selectedPhotobooth?.name}
                 className="px-8 py-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 disabled:from-gray-300 disabled:to-gray-400 text-white rounded-lg font-medium transition-colors"
               >
                 💕 Share lịch trình

@@ -123,7 +123,7 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
   const saveCurrentSchedule = async () => {
     console.log('Saving schedule with:', { selectedLunch, selectedCafe, selectedPhotobooth });
     
-    if (selectedLunch && selectedCafe && selectedPhotobooth) {
+    if (selectedLunch?.name && selectedCafe?.name && selectedPhotobooth?.name) {
       // Create a mock restaurant for Pezzi since it's hardcoded
       const pezziRestaurant: Restaurant = {
         id: 'pezzi',
@@ -150,7 +150,11 @@ export function ScheduleProvider({ children }: { children: ReactNode }) {
       // Save to API
       await saveToAPI(updatedHistory);
     } else {
-      console.log('Missing selections:', { selectedLunch: !!selectedLunch, selectedCafe: !!selectedCafe, selectedPhotobooth: !!selectedPhotobooth });
+      console.log('Missing selections or invalid data:', { 
+        selectedLunch: selectedLunch?.name || 'missing', 
+        selectedCafe: selectedCafe?.name || 'missing', 
+        selectedPhotobooth: selectedPhotobooth?.name || 'missing' 
+      });
     }
   };
 
