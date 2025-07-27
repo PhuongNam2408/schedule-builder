@@ -34,22 +34,22 @@ export default function Summary() {
 
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            💕 Lịch Trình Hẹn Hò Của Chúng Ta
+            💕 Lịch trình của ngày hôm nayyyy
           </h1>
           <p className="text-lg text-gray-700 font-medium">
-            Ngày hẹn hò đặc biệt từ Edison đến về nhà! ✨
+            Nguyễn Phương Nam ❤️ Nguyễn Thu Phương
           </p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            📅 Timeline Romantic
+            📅 Timeline
           </h2>
           
           <div className="space-y-6">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '11px', lineHeight: '1'}}>
-                11:00
+              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '15px', lineHeight: '1'}}>
+                13:00
               </div>
               <div>
                 <h3 className="font-bold text-lg text-gray-900">🍜 Ăn trưa</h3>
@@ -62,11 +62,11 @@ export default function Summary() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '11px', lineHeight: '1'}}>
-                13:30
+              <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '15px', lineHeight: '1'}}>
+                14:00
               </div>
               <div>
-                <h3 className="font-bold text-lg text-gray-900">☕ Cafe & Makeup</h3>
+                <h3 className="font-bold text-lg text-gray-900">☕ Cafe, Makeup và Tóp tóp</h3>
                 {selectedCafe?.name ? (
                   <p className="text-gray-800 font-medium">{selectedCafe.name}</p>
                 ) : (
@@ -76,8 +76,8 @@ export default function Summary() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '11px', lineHeight: '1'}}>
-                15:00
+              <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '15px', lineHeight: '1'}}>
+                17:30
               </div>
               <div>
                 <h3 className="font-bold text-lg text-gray-900">📸 Photobooth</h3>
@@ -90,32 +90,32 @@ export default function Summary() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '11px', lineHeight: '1'}}>
-                17:30
+              <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '15px', lineHeight: '1'}}>
+                18:30
               </div>
               <div>
-                <h3 className="font-bold text-lg text-gray-900">🍽️ Dinner tại Pezzi</h3>
-                <p className="text-gray-800 font-medium">Pezzi - Western & Wine</p>
+                <h3 className="font-bold text-lg text-gray-900">🍽️ Bữa tối tại Pezzi</h3>
+                <p className="text-gray-800 font-medium">Tiệm nướng N&B - Pezzi coffee & Grill</p>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '11px', lineHeight: '1'}}>
-                20:00
+              <div className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '15px', lineHeight: '1'}}>
+                21:00
               </div>
               <div>
                 <h3 className="font-bold text-lg text-gray-900">🏍️ Lượn lờ xe máy</h3>
-                <p className="text-gray-800 font-medium">Tận hưởng không khí đêm thành phố</p>
+                <p className="text-gray-800 font-medium">Ôm nhau tâm sự một xíu</p>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '11px', lineHeight: '1'}}>
+              <div className="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '15px', lineHeight: '1'}}>
                 22:00
               </div>
               <div>
                 <h3 className="font-bold text-lg text-gray-900">🏠 Đưa em về nhà</h3>
-                <p className="text-gray-800 font-medium">Kết thúc ngày hẹn hò đáng nhớ</p>
+                <p className="text-gray-800 font-medium">Kết thúc một ngày yêu em</p>
               </div>
             </div>
           </div>

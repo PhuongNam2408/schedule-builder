@@ -145,13 +145,13 @@ export default function PhotoboothSelection() {
                   Photobooth khác
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Nhập tên photobooth bạn muốn đi
+                  Nhập tên photobooth bé muốn đi
                 </p>
               </div>
             ) : (
               <div className="p-6">
                 <h3 className="text-lg font-bold text-gray-800 mb-4">
-                  Nhập tên photobooth của bạn
+                  Nhập tên photobooth của bé
                 </h3>
                 <input
                   type="text"

@@ -55,17 +55,17 @@ export default function CafeSelection() {
           className="flex items-center text-pink-600 hover:text-pink-800 text-sm font-medium bg-white rounded-full px-4 py-2 shadow-md hover:shadow-lg transition-all duration-200"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          <span>Quay lại chọn quán trưa</span>
+          <span>Quay lại chọn quán ăn trưa</span>
         </button>
       </div>
       
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            ☕ Chọn Quán Cafe Lãng Mạn
+            ☕ Chọn Quán Cafe
           </h1>
           <p className="text-lg text-gray-700 font-medium max-w-2xl mx-auto">
-            Nơi em có thể makeup xinh xắn và quay những video TikTok cực cute! 💄✨
+            Nơi em có thể makeup và quay video Tóp Tóp với anhhh 💄✨
           </p>
         </div>
 
@@ -141,13 +141,13 @@ export default function CafeSelection() {
                   Quán cafe khác
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Nhập tên quán cafe bạn muốn đi
+                  Nhập tên quán cafe bé muốn đi
                 </p>
               </div>
             ) : (
               <div className="p-6">
                 <h3 className="text-lg font-bold text-gray-800 mb-4">
-                  Nhập tên quán cafe của bạn
+                  Nhập tên quán cafe của bé
                 </h3>
                 <input
                   type="text"

@@ -62,10 +62,10 @@ export default function LunchSelection() {
 
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            💕 Chọn Quán Ăn Trưa Lãng Mạn
+            💕 Chọn Quán Ăn Trưa
           </h1>
           <p className="text-lg text-gray-700 font-medium max-w-2xl mx-auto">
-            Hãy chọn nơi để chúng ta cùng thưởng thức bữa trưa đầu tiên trong ngày hẹn hò đặc biệt này! ✨
+            Hãy chọn nơi để chúng ta cùng thưởng thức bữa trưa trong ngày hôm nay :"3 ✨
           </p>
         </div>
 
@@ -142,13 +142,13 @@ export default function LunchSelection() {
                   Quán khác
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Nhập tên quán bạn muốn đi
+                  Nhập tên quán bé muốn đi
                 </p>
               </div>
             ) : (
               <div className="p-6">
                 <h3 className="text-lg font-bold text-gray-800 mb-4">
-                  Nhập tên quán của bạn
+                  Nhập tên quán của bé
                 </h3>
                 <input
                   type="text"

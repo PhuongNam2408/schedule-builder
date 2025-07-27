@@ -37,11 +37,11 @@ export default function HistoryPage() {
     <div className="min-h-screen p-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">
+          <h1 className="text-4xl font-bold text-red-600 mb-4 drop-shadow-lg">
             💕 Dating Planner
           </h1>
-          <p className="text-lg text-white font-medium drop-shadow-md">
-            Tạo lịch trình hẹn hò lãng mạn cho chúng ta! ✨
+          <p className="text-lg text-pink-600 font-bold drop-shadow-md">
+            Tạo lịch trình hẹn hò chúng ta! ✨
           </p>
         </div>
 
@@ -49,14 +49,14 @@ export default function HistoryPage() {
           <div className="text-center">
             <div className="mb-6 text-gray-700 leading-relaxed max-w-3xl mx-auto text-justify">
               <p className="text-base indent-4">
-                Anh chào Thu Phương, người yêu của anh. Đây có thể nói là lần đầu tiên anh chuẩn bị gần như hoàn toàn cho buổi đi date của mình. Để giúp bé có trải nghiệm tốt hơn, anh tạo ra trang web này giúp em đưa ra những lựa chọn mà embe có thể yêu thích. Còn nếu không, em cứ bấm vào <strong>&ldquo;Xóa toàn bộ lịch sử&rdquo;</strong>, và sử dụng lựa chọn default của anh đưa ra nhá. Nếu em muốn tham khảo thêm các lựa chọn khác, em hãy bấm <strong>&ldquo;Tạo lịch trình mới&rdquo;</strong> nha. Anh yêu Thu Phương ❤️
+                Anh chào Thu Phương, người yêu của anh. Đây có thể nói là lần đầu tiên anh chuẩn bị gần như hoàn toàn cho buổi hẹn hò của bọn mình. Anh tạo ra trang web này giúp em đưa ra những lựa chọn mà bé có thể yêu thích. Còn nếu không, em cứ bấm vào <strong>&ldquo;Xóa toàn bộ lịch sử&rdquo;</strong>, và sử dụng lựa chọn default của anh đưa ra nhá. Nếu em muốn tham khảo thêm các lựa chọn khác, em hãy bấm <strong>&ldquo;Tạo lịch trình mới&rdquo;</strong> nha. Anh yêu Thu Phương ❤️
               </p>
             </div>
             <button
               onClick={startNewSchedule}
               className="px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white rounded-xl font-bold text-lg transition-colors shadow-lg"
             >
-              💕 Tạo Lịch Trình Mới
+              💕 Tạo lịch trình mới
             </button>
           </div>
         </div>
@@ -85,8 +85,8 @@ export default function HistoryPage() {
             
             <div className="space-y-6">
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
-                  11:00
+                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '15px', lineHeight: '1'}}>
+                  13:00
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-900">🍜 Ăn trưa</h3>
@@ -96,8 +96,8 @@ export default function HistoryPage() {
               </div>
 
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
-                  13:30
+                <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '15px', lineHeight: '1'}}>
+                  14:00
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-900">☕ Cafe & Makeup</h3>
@@ -107,8 +107,8 @@ export default function HistoryPage() {
               </div>
 
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
-                  15:00
+                <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '15px', lineHeight: '1'}}>
+                  17:30
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-900">📸 Photobooth</h3>
@@ -118,8 +118,8 @@ export default function HistoryPage() {
               </div>
 
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
-                  17:30
+                <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '15px', lineHeight: '1'}}>
+                  18:30
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-900">🍽️ Dinner tại Pezzi</h3>
@@ -129,8 +129,8 @@ export default function HistoryPage() {
               </div>
 
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
-                  20:00
+                <div className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '15px', lineHeight: '1'}}>
+                  21:00
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-900">🏍️ Lượn lờ xe máy</h3>
@@ -139,7 +139,7 @@ export default function HistoryPage() {
               </div>
 
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xs flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem'}}>
+                <div className="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{minWidth: '4rem', minHeight: '4rem', fontSize: '15px', lineHeight: '1'}}>
                   22:00
                 </div>
                 <div>

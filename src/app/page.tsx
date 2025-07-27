@@ -15,7 +15,7 @@ export default function Home() {
   const getStepTitle = () => {
     switch (currentStep) {
       case 0: return "Trang chủ";
-      case 1: return "Chọn quán trưa";
+      case 1: return "Chọn quán ăn trưa";
       case 2: return "Chọn quán cafe";
       case 3: return "Chọn photobooth";
       case 4: return "Xác nhận lịch trình";
