@@ -2,16 +2,47 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Camera, MapPin, ArrowLeft } from 'lucide-react';
+import { Camera, MapPin, ArrowLeft, Plus } from 'lucide-react';
 import { photobooths, Photobooth } from '@/data/venues';
 import { useSchedule } from '@/context/ScheduleContext';
 
 export default function PhotoboothSelection() {
   const { selectedPhotobooth, setSelectedPhotobooth, nextStep, prevStep } = useSchedule();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [showCustomInput, setShowCustomInput] = useState(false);
+  const [customName, setCustomName] = useState('');
 
   const handleSelect = (photobooth: Photobooth) => {
     setSelectedPhotobooth(photobooth);
+    setTimeout(() => nextStep(), 500);
+  };
+
+  const handleCustomSubmit = async () => {
+    if (!customName.trim()) return;
+
+    const customPhotobooth: Photobooth = {
+      id: `custom-${Date.now()}`,
+      name: customName.trim(),
+      address: 'Địa chỉ tùy chọn',
+      image: '/placeholder-photobooth.jpg',
+      tiktokUrl: '#'
+    };
+
+    // Lưu vào database
+    try {
+      await fetch('/api/custom-venues', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'photobooth',
+          name: customName.trim()
+        })
+      });
+    } catch (error) {
+      console.error('Error saving custom venue:', error);
+    }
+
+    setSelectedPhotobooth(customPhotobooth);
     setTimeout(() => nextStep(), 500);
   };
 
@@ -96,6 +127,59 @@ export default function PhotoboothSelection() {
               </div>
             </div>
           ))}
+          
+          {/* Custom option card */}
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-dashed border-purple-300 hover:border-purple-400 transition-all duration-300">
+            {!showCustomInput ? (
+              <div 
+                className="p-8 text-center cursor-pointer hover:bg-purple-50 transition-colors duration-200"
+                onClick={() => setShowCustomInput(true)}
+              >
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Plus className="w-8 h-8 text-purple-500" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">
+                  Photobooth khác
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  Nhập tên photobooth bạn muốn đi
+                </p>
+              </div>
+            ) : (
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-gray-800 mb-4">
+                  Nhập tên photobooth của bạn
+                </h3>
+                <input
+                  type="text"
+                  value={customName}
+                  onChange={(e) => setCustomName(e.target.value)}
+                  placeholder="VD: Hàn Quốc Studio..."
+                  className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  onKeyPress={(e) => e.key === 'Enter' && handleCustomSubmit()}
+                  autoFocus
+                />
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleCustomSubmit}
+                    disabled={!customName.trim()}
+                    className="flex-1 bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
+                  >
+                    Chọn chỗ này 📷
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowCustomInput(false);
+                      setCustomName('');
+                    }}
+                    className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors duration-200"
+                  >
+                    Hủy
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="text-center mt-8">

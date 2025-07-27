@@ -2,16 +2,47 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { MapPin, ArrowLeft } from 'lucide-react';
+import { MapPin, ArrowLeft, Plus } from 'lucide-react';
 import { lunchPlaces, LunchPlace } from '@/data/venues';
 import { useSchedule } from '@/context/ScheduleContext';
 
 export default function LunchSelection() {
   const { selectedLunch, setSelectedLunch, nextStep, setCurrentStep } = useSchedule();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [showCustomInput, setShowCustomInput] = useState(false);
+  const [customName, setCustomName] = useState('');
 
   const handleSelect = (lunch: LunchPlace) => {
     setSelectedLunch(lunch);
+    setTimeout(() => nextStep(), 500);
+  };
+
+  const handleCustomSubmit = async () => {
+    if (!customName.trim()) return;
+
+    const customLunch: LunchPlace = {
+      id: `custom-${Date.now()}`,
+      name: customName.trim(),
+      address: 'Địa chỉ tùy chọn',
+      image: '/placeholder-restaurant.jpg',
+      tiktokUrl: '#'
+    };
+
+    // Lưu vào database
+    try {
+      await fetch('/api/custom-venues', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'lunch',
+          name: customName.trim()
+        })
+      });
+    } catch (error) {
+      console.error('Error saving custom venue:', error);
+    }
+
+    setSelectedLunch(customLunch);
     setTimeout(() => nextStep(), 500);
   };
 
@@ -93,6 +124,59 @@ export default function LunchSelection() {
               </div>
             </div>
           ))}
+          
+          {/* Custom option card */}
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-dashed border-pink-300 hover:border-pink-400 transition-all duration-300">
+            {!showCustomInput ? (
+              <div 
+                className="p-8 text-center cursor-pointer hover:bg-pink-50 transition-colors duration-200"
+                onClick={() => setShowCustomInput(true)}
+              >
+                <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Plus className="w-8 h-8 text-pink-500" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">
+                  Quán khác
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  Nhập tên quán bạn muốn đi
+                </p>
+              </div>
+            ) : (
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-gray-800 mb-4">
+                  Nhập tên quán của bạn
+                </h3>
+                <input
+                  type="text"
+                  value={customName}
+                  onChange={(e) => setCustomName(e.target.value)}
+                  placeholder="VD: Quán cơm mẹ nấu..."
+                  className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                  onKeyPress={(e) => e.key === 'Enter' && handleCustomSubmit()}
+                  autoFocus
+                />
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleCustomSubmit}
+                    disabled={!customName.trim()}
+                    className="flex-1 bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
+                  >
+                    Chọn quán này ❤️
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowCustomInput(false);
+                      setCustomName('');
+                    }}
+                    className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors duration-200"
+                  >
+                    Hủy
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="text-center mt-8">

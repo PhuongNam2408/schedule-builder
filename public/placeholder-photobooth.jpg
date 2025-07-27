@@ -1,0 +1,5 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#f3e8ff"/>
+  <text x="200" y="130" font-family="Arial" font-size="20" fill="#7c3aed" text-anchor="middle">📷</text>
+  <text x="200" y="170" font-family="Arial" font-size="14" fill="#7c3aed" text-anchor="middle">Photobooth tùy chọn</text>
+</svg>
