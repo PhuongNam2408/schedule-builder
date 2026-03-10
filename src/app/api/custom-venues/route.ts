@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { redis } from '@/lib/redis';
+import { db } from '@/lib/db';
 
 export async function POST(request: Request) {
   try {
@@ -12,22 +12,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Tạo key theo loại venue
-    const key = `custom_venues:${type}`;
-    
-    // Tạo venue object
-    const customVenue = {
-      id: `custom-${Date.now()}`,
-      name: name.trim(),
-      type,
-      createdAt: new Date().toISOString()
-    };
-
-    // Lưu vào Redis list
-    await redis.lpush(key, JSON.stringify(customVenue));
-    
-    // Giữ tối đa 100 custom venues mỗi loại
-    await redis.ltrim(key, 0, 99);
+    // Tạo custom venue
+    const customVenue = await db.customVenue.create({
+      data: {
+        type,
+        name: name.trim(),
+      },
+    });
 
     return NextResponse.json({ success: true, venue: customVenue });
   } catch (error) {
@@ -51,12 +42,16 @@ export async function GET(request: Request) {
       );
     }
 
-    const key = `custom_venues:${type}`;
-    const venues = await redis.lrange(key, 0, -1);
+    const venues = await db.customVenue.findMany({
+      where: {
+        type,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
     
-    const parsedVenues = venues.map(venue => JSON.parse(venue));
-    
-    return NextResponse.json({ venues: parsedVenues });
+    return NextResponse.json({ venues });
   } catch (error) {
     console.error('Error fetching custom venues:', error);
     return NextResponse.json(

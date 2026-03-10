@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { redis } from "@/lib/redis";
+import { db } from "@/lib/db";
 
 export async function DELETE() {
   try {
     // Xóa tất cả dữ liệu schedules
-    await redis.del("schedules");
+    await db.schedule.deleteMany();
     
     return NextResponse.json({ 
       message: "All schedules cleared successfully" 
@@ -20,8 +20,8 @@ export async function DELETE() {
 
 export async function POST() {
   try {
-    // Xóa tất cả schedules từ Redis database chung
-    await redis.del("schedules");
+    // Xóa tất cả schedules
+    await db.schedule.deleteMany();
     
     return NextResponse.json({ success: true, message: "All schedules cleared" }, { status: 200 });
   } catch (error) {

@@ -1,36 +1,36 @@
 import { NextRequest, NextResponse } from "next/server";
-import { redis } from "@/lib/redis";
-import { nanoid } from "nanoid";
+import { db } from "@/lib/db";
 
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
     
-    // If saving entire schedules array
-    if (data.schedules) {
-      // Clear existing schedules
-      await redis.del("schedules");
-      
-      // Save each schedule
-      for (const schedule of data.schedules) {
-        await redis.lpush("schedules", JSON.stringify(schedule));
-      }
-      
-      return NextResponse.json({ success: true, count: data.schedules.length }, { status: 200 });
-    }
-    
-    // Legacy: saving single schedule
-    const record = {
-      id: nanoid(8),
-      ...data,
-      createdAt: Date.now()
-    };
-    
-    // Thêm lịch trình mới vào đầu danh sách
-    await redis.lpush("schedules", JSON.stringify(record));
-    
-    // Giữ chỉ 50 lịch trình gần nhất để tiết kiệm storage
-    await redis.ltrim("schedules", 0, 49);
+    // Save single schedule
+    const record = await db.schedule.create({
+      data: {
+        date: data.date || new Date().toISOString().split('T')[0],
+        lunchId: data.lunch?.id || "",
+        lunchName: data.lunch?.name || "",
+        lunchAddress: data.lunch?.address || "",
+        lunchImage: data.lunch?.image,
+        lunchTiktok: data.lunch?.tiktokUrl,
+        cafeId: data.cafe?.id || "",
+        cafeName: data.cafe?.name || "",
+        cafeAddress: data.cafe?.address || "",
+        cafeImage: data.cafe?.image,
+        cafeTiktok: data.cafe?.tiktokUrl,
+        photoboothId: data.photobooth?.id || "",
+        photoboothName: data.photobooth?.name || "",
+        photoboothAddress: data.photobooth?.address || "",
+        photoboothImage: data.photobooth?.image,
+        photoboothTiktok: data.photobooth?.tiktokUrl,
+        restaurantId: data.restaurant?.id || "",
+        restaurantName: data.restaurant?.name || "",
+        restaurantAddress: data.restaurant?.address || "",
+        restaurantImage: data.restaurant?.image,
+        restaurantTiktok: data.restaurant?.tiktokUrl,
+      },
+    });
     
     return NextResponse.json(record, { status: 201 });
   } catch (error) {
@@ -44,25 +44,11 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
-    const items = await redis.lrange("schedules", 0, -1);
-    
-    // Xử lý dữ liệu từ Redis - có thể là string hoặc object
-    const schedules = items.map(item => {
-      if (typeof item === 'string') {
-        try {
-          return JSON.parse(item);
-        } catch (e) {
-          console.error("Error parsing item:", item, e);
-          return null;
-        }
-      } else if (typeof item === 'object' && item !== null) {
-        // Dữ liệu đã là object, trả về trực tiếp
-        return item;
-      } else {
-        console.error("Unexpected item type:", typeof item, item);
-        return null;
-      }
-    }).filter(item => item !== null); // Loại bỏ các item lỗi
+    const schedules = await db.schedule.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
     
     return NextResponse.json({ schedules });
   } catch (error) {

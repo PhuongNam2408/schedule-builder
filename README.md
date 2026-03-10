@@ -15,12 +15,13 @@
 
 - **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes
-- **Database**: Upstash Redis (serverless)
-- **Deployment**: Vercel (miễn phí)
+- **Database**: SQLite (local)
+- **ORM**: Prisma
+- **Deployment**: Vercel, VPS, hoặc bất kỳ server nào
 - **Icons**: Lucide React
 - **Data Fetching**: SWR
 
-## 🚀 Deploy lên Vercel + Upstash Redis (100% MIỄN PHÍ)
+## 🚀 Deploy lên Server (100% MIỄN PHÍ)
 
 ### Bước 1: Chuẩn bị mã nguồn
 ```bash
@@ -29,26 +30,37 @@ cd schedule-builder
 npm install
 ```
 
-### Bước 2: Deploy lên Vercel
-1. Truy cập [vercel.com](https://vercel.com)
-2. Đăng nhập bằng GitHub
-3. Bấm **"New Project"**
-4. Import repository này
-5. Framework preset: **Next.js** (tự động nhận dạng)
-6. Bấm **"Deploy"**
+### Bước 2: Cấu hình môi trường
+```bash
+cp .env.example .env
+```
 
-### Bước 3: Thêm Upstash Redis
-1. Trong **Vercel Dashboard** → **Marketplace** 
-2. Tìm **"Upstash Redis"** → **"Add Integration"**
-3. Chọn project vừa deploy → **"Create database"**
-4. Vercel sẽ tự động thêm biến môi trường `UPSTASH_REDIS_REST_URL` và `UPSTASH_REDIS_REST_TOKEN`
+File `.env` sẽ chứa:
+```env
+DATABASE_URL="file:./prisma/dev.db"
+```
 
-### Bước 4: Gắn tên miền (tùy chọn)
-1. Trong project → **Settings** → **Domains**
-2. **Add** → nhập tên miền của bạn
-3. Trỏ DNS theo hướng dẫn
+### Bước 3: Khởi tạo Database
+```bash
+npx prisma migrate dev --name init
+npx prisma generate
+```
 
-**Xong!** 🎉 Ứng dụng của bạn sẽ chạy tại `https://your-app.vercel.app`
+### Bước 4: Chạy ứng dụng
+```bash
+npm run dev
+```
+
+Truy cập http://localhost:3000
+
+### Bước 5: Deploy lên Server (VPS/DigitalOcean/etc.)
+```bash
+# Build cho production
+npm run build
+npm start
+```
+
+**Xong!** 🎉 Ứng dụng của bạn sẽ chạy với database SQLite local.
 
 ## 💻 Chạy Local Development
 
@@ -61,16 +73,21 @@ npm install
 
 ### 2. Cấu hình môi trường
 ```bash
-cp .env.local.example .env.local
+cp .env.example .env
 ```
 
-Tạo tài khoản miễn phí tại [Upstash](https://upstash.com), tạo Redis database và điền thông tin vào `.env.local`:
+File `.env` sẽ chứa:
 ```env
-UPSTASH_REDIS_REST_URL=your_redis_url_here
-UPSTASH_REDIS_REST_TOKEN=your_redis_token_here
+DATABASE_URL="file:./prisma/dev.db"
 ```
 
-### 3. Chạy development server
+### 3. Khởi tạo Database
+```bash
+npx prisma migrate dev --name init
+npx prisma generate
+```
+
+### 4. Chạy development server
 ```bash
 npm run dev
 ```
@@ -79,29 +96,39 @@ Truy cập http://localhost:3000
 
 Mở [http://localhost:3000](http://localhost:3000) để xem ứng dụng.
 
-## Deploy lên Vercel (Miễn phí)
+## 🌐 Deploy lên Các Nền Tảng Khác
 
-### Cách 1: Deploy từ Git (Khuyến nghị)
+### Deploy lên Vercel (Tùy chọn)
 1. Push code lên GitHub/GitLab
 2. Truy cập [vercel.com](https://vercel.com) → **New Project**
 3. Import repository → Deploy
-4. Thêm Upstash Redis Integration:
-   - Vercel Dashboard → **Marketplace** → **Upstash Redis** 
-   - **Add Integration** → Chọn project → **Create database**
-5. Vercel sẽ tự động thêm biến môi trường và redeploy
+4. Vercel sẽ tự động nhận dạng Next.js và deploy
 
-### Cách 2: Deploy từ CLI
+### Deploy lên VPS/DigitalOcean/AWS
 ```bash
-npm i -g vercel
-vercel --prod
+# Trên server của bạn
+git clone <your-repo-url>
+cd schedule-builder
+npm install
+cp .env.example .env
+# Chỉnh sửa .env với DATABASE_URL
+npx prisma migrate deploy
+npm run build
+npm start
 ```
 
-## Thêm tên miền riêng
-
-1. Mua domain (khuyến nghị: Cloudflare Registrar)
-2. Trong Vercel Dashboard: **Settings** → **Domains** → **Add**
-3. Nhập domain → Làm theo hướng dẫn trỏ DNS
-4. HTTPS tự động được cấp bởi Vercel
+### Deploy với Docker
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npx prisma generate
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
 
 ## Cấu trúc thư mục
 
@@ -121,7 +148,9 @@ src/
 ├── data/
 │   └── venues.ts            # Dữ liệu cafe & nhà hàng
 └── lib/
-    └── redis.ts            # Kết nối Redis
+    └── db.ts               # Kết nối Database (Prisma)
+prisma/
+└── schema.prisma           # Database schema
 ```
 
 ## Tùy chỉnh dữ liệu
@@ -143,17 +172,69 @@ export const cafes: Cafe[] = [
 ];
 ```
 
+### Cập nhật Database Schema
+Khi thay đổi `prisma/schema.prisma`:
+```bash
+npx prisma migrate dev --name your-migration-name
+npx prisma generate
+```
+
 ## API Endpoints
 
 - `GET /api/schedule` - Lấy danh sách tất cả lịch trình
 - `POST /api/schedule` - Lưu lịch trình mới
+- `DELETE /api/schedule/clear` - Xóa tất cả lịch trình
+- `GET /api/custom-venues?type=lunch` - Lấy custom venues theo loại
 
-## Giới hạn Free Tier
+## Quản lý Database SQLite
 
-- **Vercel**: 100GB băng thông, unlimited requests
-- **Upstash Redis**: 256MB storage, 500K commands/tháng
+### Backup dữ liệu
+```bash
+# File database nằm tại: prisma/dev.db
+cp prisma/dev.db backup-$(date +%Y%m%d).db
+```
 
-Đủ cho hàng nghìn người dùng thực tế.
+### Reset database
+```bash
+npx prisma migrate reset
+```
+
+### Xem dữ liệu
+```bash
+npx prisma studio
+```
+Truy cập http://localhost:5555 để xem database qua web interface.
+
+## Troubleshooting
+
+### Lỗi "Database file is locked"
+```bash
+# Dừng app trước
+pkill -f "npm run dev"
+# Hoặc xóa file lock
+rm prisma/dev.db-journal
+```
+
+### Reset database hoàn toàn
+```bash
+npx prisma migrate reset --force
+npx prisma migrate dev --name init
+```
+
+### Migration không hoạt động
+```bash
+# Xóa và tạo lại
+rm -rf prisma/migrations
+npx prisma migrate dev --name init
+```
+
+## Giới hạn & Tính năng
+
+- **SQLite**: Unlimited storage, miễn phí hoàn toàn
+- **Vercel**: 100GB băng thông, unlimited requests (nếu deploy lên Vercel)
+- **VPS**: Tùy thuộc vào cấu hình server của bạn
+
+Đủ cho hàng nghìn người dùng thực tế với database local.
 
 ## Contributing
 

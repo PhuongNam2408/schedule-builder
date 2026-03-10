@@ -4,116 +4,153 @@
 Schedule Builder là ứng dụng web để tạo lịch trình thăm quán cà phê và nhà hàng. Ứng dụng:
 - ✅ Không yêu cầu đăng nhập người dùng
 - ✅ Lưu trữ tất cả lịch trình để mọi người xem
-- ✅ Hoàn toàn MIỄN PHÍ với Vercel + Upstash Redis
+- ✅ Hoàn toàn MIỄN PHÍ với SQLite (local database)
+- ✅ Dễ deploy lên Vercel, VPS, hoặc bất kỳ server nào
 
 ---
 
-## 🚀 BƯỚC 1: DEPLOY LÊN VERCEL
+## 🚀 BƯỚC 1: SETUP LOCAL TRƯỚC
 
-### 1.1 Chuẩn bị
-- Tài khoản GitHub (để lưu code)
-- Tài khoản Vercel (miễn phí tại [vercel.com](https://vercel.com))
+### 1.1 Chuẩn bị môi trường
+```bash
+git clone <your-repo-url>
+cd schedule-builder
+npm install
+```
 
-### 1.2 Upload code lên GitHub
+### 1.2 Cấu hình Database
+```bash
+cp .env.example .env
+# File .env sẽ chứa: DATABASE_URL="file:./prisma/dev.db"
+```
+
+### 1.3 Khởi tạo Database SQLite
+```bash
+npx prisma migrate dev --name init
+```
+
+### 1.4 Chạy development server
+```bash
+npm run dev
+```
+
+Truy cập http://localhost:3000 để test ứng dụng.
+
+---
+
+## � BƯỚC 2: DEPLOY LÊN VERCEL
+
+### 2.1 Upload code lên GitHub
 
 **Bước 1**: Tạo repository trên GitHub
 1. Truy cập [github.com](https://github.com) và đăng nhập
 2. Bấm **"New repository"** 
 3. Tên repository: `schedule-builder`
 4. Để **Public** (hoặc Private nếu muốn)
-5. **KHÔNG** tick "Add a README file"
-6. Bấm **"Create repository"**
+5. Bấm **"Create repository"**
 
 **Bước 2**: Push code lên GitHub
 ```bash
-# Nếu chưa có Git repo
 git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/phuongnam2408/schedule-builder.git
+git remote add origin https://github.com/your-username/schedule-builder.git
 git push -u origin main
 ```
 
-### 1.3 Deploy trên Vercel
+### 2.2 Deploy trên Vercel
 1. **Truy cập [vercel.com/dashboard](https://vercel.com/dashboard)**
 2. **Đăng nhập** bằng GitHub
 3. **Bấm "New Project"**
 4. **Import** repository từ GitHub
 5. **Framework Preset**: Next.js (tự động nhận dạng)
-6. **Tên project**: `schedule-builder` (hoặc tên khác)
+6. **Environment Variables**: Thêm `DATABASE_URL="file:./prisma/dev.db"`
 7. **Bấm "Deploy"**
 
 ✅ Sau 2-3 phút, bạn sẽ có URL dạng: `https://schedule-builder-xyz.vercel.app`
 
 ---
 
-## 🔧 BƯỚC 2: THÊM DATABASE (REDIS)
+## 🚀 BƯỚC 3: DEPLOY LÊN VPS/DIGITALOCEAN
 
-### 2.1 Cách 1: Sử dụng Upstash từ Vercel Marketplace (Dễ nhất)
-1. **Trong Vercel Dashboard** → **Marketplace** 
-2. **Tìm "Upstash"** → **"Add Integration"** 
-3. **Chọn project** → **"Create database"**
-4. Vercel sẽ tự động thêm các biến môi trường:
-   ```
-   KV_REST_API_URL=https://your-database.upstash.io
-   KV_REST_API_TOKEN=your_token_here
-   REDIS_URL=rediss://default:token@host:6379
-   ```
+### 3.1 Chuẩn bị
+- VPS với Node.js 18+ và npm
+- SSH access vào server
+- Domain (tùy chọn)
 
-### 2.2 Cách 2: Sử dụng Redis Cloud
-1. **Truy cập [redis.com](https://redis.com)** → **"Try Free"**
-2. **Tạo database** miễn phí (30MB)
-3. **Copy connection string** dạng: `redis://default:password@host:port`
-4. **Trong Vercel Dashboard** → **Settings** → **Environment Variables**
-5. **Thêm biến**: `REDIS_URL` = connection string của bạn
+### 3.2 Upload code
+```bash
+# Từ máy local
+scp -r . username@your-server.com:/home/username/schedule-builder
 
-### 2.3 Xác nhận biến môi trường
-Kiểm tra tại: **Project → Settings → Environment Variables**
+# Hoặc dùng Git
+ssh username@your-server.com
+git clone https://github.com/your-username/schedule-builder.git
+cd schedule-builder
+```
 
-Bạn sẽ thấy một trong các bộ biến sau:
-- **Upstash KV**: `KV_REST_API_URL` + `KV_REST_API_TOKEN` 
-- **Redis Cloud**: `REDIS_URL`
+### 3.3 Setup trên server
+```bash
+npm install
+cp .env.example .env
+# Chỉnh sửa .env với DATABASE_URL nếu cần
 
-✅ Ứng dụng sẽ tự động redeploy và hoạt động đầy đủ!
+npx prisma migrate deploy
+npm run build
+```
+
+### 3.4 Chạy ứng dụng
+```bash
+# Dùng PM2 (khuyến nghị)
+npm install -g pm2
+pm2 start "npm start" --name "schedule-builder"
+pm2 startup
+pm2 save
+
+# Hoặc dùng systemd service
+```
+
+### 3.5 Gắn domain (tùy chọn)
+```bash
+# Dùng Nginx
+sudo nano /etc/nginx/sites-available/schedule-builder
+
+# Thêm:
+server {
+    listen 80;
+    server_name yourdomain.com;
+    
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+    }
+}
+
+# Enable site
+sudo ln -s /etc/nginx/sites-available/schedule-builder /etc/nginx/sites-enabled/
+sudo systemctl restart nginx
+```
 
 ---
 
-## 🌐 BƯỚC 3: GẮN TÊN MIỀN RIÊNG (TÙY CHỌN)
+## 🔧 BACKUP DỮ LIỆU
 
-### 3.1 Mua tên miền
-- **Cloudflare Registrar**: Giá gốc, không phí ẩn
-- **Namecheap, GoDaddy**: Có khuyến mãi cho năm đầu
+### Backup SQLite Database
+```bash
+# Backup file dev.db
+cp prisma/dev.db backup-$(date +%Y%m%d-%H%M%S).db
 
-### 3.2 Gắn domain vào Vercel
-1. **Project → Settings → Domains**
-2. **"Add Domain"** → nhập `yourdomain.com`
-3. **Trỏ DNS** theo hướng dẫn:
-   - **A record**: `@` → IP của Vercel
-   - **CNAME**: `www` → `yourdomain.vercel.app`
-
-✅ Sau 5-15 phút, truy cập `https://yourdomain.com` sẽ thấy ứng dụng!
+# Restore từ backup
+cp backup-20260308-120000.db prisma/dev.db
+npm run dev  # Restart app
+```
 
 ---
 
-## 📊 GIỚI HẠN MIỄN PHÍ
-
-### Vercel Hobby Plan (Miễn phí)
-- ✅ **100GB** băng thông/tháng
-- ✅ **Không giới hạn** số project
-- ✅ **HTTPS** tự động
-- ✅ **Deployment** không giới hạn
-
-### Upstash Redis Free Tier
-- ✅ **256MB** storage
-- ✅ **500,000** requests/tháng  
-- ✅ **1GB** data transfer/tháng
-
-**➡️ Đủ cho 1000+ lịch trình/tháng!**
-
----
-
-## 🛠️ CHỈNH SỬA DỮ LIỆU
+## 📝 CHỈNH SỬA DỮ LIỆU
 
 ### Thêm quán cà phê/nhà hàng
 Chỉnh sửa file `src/data/venues.ts`:
@@ -124,10 +161,8 @@ export const cafes: Cafe[] = [
     id: "new-cafe",
     name: "Quán Cà Phê Mới", 
     address: "123 Đường ABC, Quận XYZ",
-    rating: 4.5,
-    priceRange: "50k - 100k",
     image: "https://picsum.photos/300/200?random=123",
-    specialty: "Specialty coffee, Bánh ngọt"
+    tiktokUrl: "https://tiktok.com/@..."
   },
   // ... thêm quán khác
 ];
@@ -146,17 +181,29 @@ Vercel sẽ tự động deploy lại trong 1-2 phút!
 
 ## 🔧 TROUBLESHOOTING
 
-### Lỗi "Redis connection failed"
-- ✅ Kiểm tra biến môi trường trong Vercel
-- ✅ Thử tạo lại Upstash Redis database
+### Lỗi "Database file is locked"
+```bash
+# Đóng tất cả process Node
+pkill -f "npm"
+# Xóa lock file
+rm prisma/dev.db-journal
+npm run dev
+```
 
-### Ứng dụng không lưu được lịch trình
-- ✅ Check Console (F12) để xem lỗi API
-- ✅ Đảm bảo Upstash Redis hoạt động
+### Reset database hoàn toàn
+```bash
+npx prisma migrate reset --force
+npx prisma migrate dev --name init
+```
 
-### Vercel Dashboard không thấy Marketplace
-- ✅ Đăng nhập lại Vercel
-- ✅ Thử trên trình duyệt khác (Chrome/Firefox)
+### Migration có lỗi
+```bash
+# Xóa migrations cũ
+rm -rf prisma/migrations
+npx prisma migrate dev --name init
+```
+
+---
 
 ---
 

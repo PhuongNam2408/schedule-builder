@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Schedule {
+  id        String   @id @default(cuid())
+  date      String
+  createdAt DateTime @default(now())
+
+  // Lunch data
+  lunchId      String
+  lunchName    String
+  lunchAddress String
+  lunchImage   String?
+  lunchTiktok  String?
+
+  // Cafe data
+  cafeId      String
+  cafeName    String
+  cafeAddress String
+  cafeImage   String?
+  cafeTiktok  String?
+
+  // Photobooth data
+  photoboothId      String
+  photoboothName    String
+  photoboothAddress String
+  photoboothImage   String?
+  photoboothTiktok  String?
+
+  // Restaurant data
+  restaurantId      String
+  restaurantName    String
+  restaurantAddress String
+  restaurantImage   String?
+  restaurantTiktok  String?
+
+  @@index([createdAt])
+  @@index([date])
+}
+
+model CustomVenue {
+  id        String   @id @default(cuid())
+  type      String   // "lunch", "cafe", "photobooth", "restaurant"
+  name      String
+  createdAt DateTime @default(now())
+
+  @@index([type])
+  @@index([createdAt])
+}
