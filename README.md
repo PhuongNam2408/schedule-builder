@@ -117,17 +117,60 @@ npm run build
 npm start
 ```
 
-### Deploy với Docker
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npx prisma generate
-RUN npm run build
-EXPOSE 3000
-CMD ["npm", "start"]
+### Deploy với Docker (dựa trên Dockerfile hiện tại)
+
+`Dockerfile` trong project là multi-stage build và chạy Next.js ở chế độ standalone (`node server.js`).
+
+1. Build Docker image:
+
+```bash
+docker build --progress=plain -t schedule-builder .
+```
+
+2. Chạy container (foreground, đơn giản nhất):
+
+```bash
+docker run -p 3000:3000 schedule-builder:latest
+```
+
+3. Chạy container với biến môi trường từ `.env` (khuyến nghị khi dùng Prisma):
+
+```bash
+docker run -d --name schedule-builder -p 3000:3000 --env-file .env schedule-builder:latest
+```
+
+4. Truy cập ứng dụng tại `http://localhost:3000`.
+
+Các lệnh hữu ích:
+
+```bash
+# Xem logs
+docker logs -f schedule-builder
+
+# Dừng và xóa container
+docker stop schedule-builder
+docker rm schedule-builder
+
+# Build lại image sau khi đổi code
+docker build --no-cache --progress=plain -t schedule-builder .
+```
+
+Nếu bạn chưa có file `.env`, có thể truyền trực tiếp `DATABASE_URL`:
+
+```bash
+docker run -d --name schedule-builder -p 3000:3000 \
+  -e DATABASE_URL="file:./dev.db" \
+  schedule-builder:latest
+```
+
+Để giữ dữ liệu SQLite sau khi xóa container, mount volume:
+
+```bash
+mkdir -p docker-data
+docker run -d --name schedule-builder -p 3000:3000 \
+  -e DATABASE_URL="file:./data/dev.db" \
+  -v "$(pwd)/docker-data:/app/data" \
+  schedule-builder:latest
 ```
 
 ## Cấu trúc thư mục
