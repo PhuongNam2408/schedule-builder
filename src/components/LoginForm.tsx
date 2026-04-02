@@ -142,7 +142,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         {/* Footer */}
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-500">
-            Được tạo với ❤️ cho những buổi hẹn hò lãng mạn
+            Tình yêu của Phương Nam dành cho Thu Phương ❤️ 
           </p>
         </div>
       </div>
