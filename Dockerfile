@@ -1,10 +1,10 @@
 # ---------- Stage 1: Build ----------
-FROM node:18-slim AS builder
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
 # Instal openssl for prisma runnable
-RUN apt-get update && apt-get install -y openssl
+RUN apk add --no-cache openssl
 
 # copy dependency
 COPY package*.json ./
@@ -21,11 +21,11 @@ RUN npx prisma generate
 RUN npm run build
 
 # ---------- Stage 2: Production ----------
-FROM node:18-slim
+FROM node:18-alpine
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y openssl
+RUN apk add --no-cache openssl
 
 # copy standalone runtime
 COPY --from=builder /app/.next/standalone ./
